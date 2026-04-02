@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Start With the Behavior, Not the Metric · David Hopper</title>
+  <meta name="description" content="David Hopper on commercial operations and go-to-market strategy." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: #faf8f4;
+      color: #1a1a18;
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: 19px;
+      line-height: 1.8;
+    }
+    nav {
+      background: #0f172a;
+      padding: 18px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #1e293b;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-home {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #1a6b3c;
+      text-decoration: none;
+    }
+    .nav-home:hover { color: #2ec27e; }
+    .nav-meta {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: #334155;
+      letter-spacing: 0.06em;
+    }
+    .essay-header {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 56px 48px 40px;
+      border-bottom: 1px solid #e0dbd4;
+    }
+    .essay-category {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #1a6b3c;
+      margin-bottom: 16px;
+    }
+    .essay-title {
+      font-size: 42px;
+      font-weight: 600;
+      line-height: 1.12;
+      color: #0a0a08;
+      margin-bottom: 20px;
+      letter-spacing: -0.01em;
+    }
+    .essay-meta {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: #9a9690;
+      letter-spacing: 0.06em;
+    }
+    .essay-body {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 48px 48px 100px;
+    }
+    .essay-body p {
+      margin-bottom: 28px;
+      color: #2a2520;
+    }
+    .essay-body h2 {
+      font-size: 24px;
+      font-weight: 600;
+      color: #0a0a08;
+      margin: 48px 0 20px;
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+    }
+    .essay-body h2::before {
+      content: '';
+      display: block;
+      width: 28px;
+      height: 2px;
+      background: #1a6b3c;
+      margin-bottom: 16px;
+    }
+    .essay-footer {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 28px 48px 48px;
+      border-top: 1px solid #e0dbd4;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .essay-footer-author {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: #9a9690;
+    }
+    .essay-footer-link {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: #1a6b3c;
+      text-decoration: none;
+      letter-spacing: 0.06em;
+    }
+    .essay-footer-link:hover { color: #2ec27e; }
+    @media (max-width: 700px) {
+      nav { padding: 16px 24px; }
+      .essay-header { padding: 36px 24px 28px; }
+      .essay-title { font-size: 30px; }
+      .essay-body { padding: 32px 24px 80px; }
+      .essay-footer { padding: 20px 24px 40px; flex-direction: column; gap: 12px; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="/" class="nav-home">← David Hopper</a>
+    <div class="nav-meta">Commercial Operations &amp; Strategy</div>
+  </nav>
+  <div class="essay-header">
+    <div class="essay-category">Essay · Business Intelligence</div>
+    <h1 class="essay-title">Start With the Behavior, Not the Metric</h1>
+    <div class="essay-meta">7 min read · David Hopper</div>
+  </div>
+  <div class="essay-body">
+    <p>Every few months, someone in a leadership team decides the organization needs better dashboards. The conversation usually starts with a problem — forecast visibility is poor, marketing ROI is unclear, the board keeps asking questions nobody can answer quickly — and ends with a project: build the dashboard.</p>
+    <p>Six months later, the dashboard exists. It is usually technically competent. It pulls from the right systems, updates on the right cadence, and displays the right number of metrics in a layout that looks authoritative. And it is, in most cases, largely ignored.</p>
+    <p>The reason is almost always the same. The team built the answer before they understood the question.</p>
+    <h2>The Question That Gets Skipped</h2>
+    <p>Business intelligence projects fail not because of data quality issues or tool selection or organizational bandwidth, though all of those things contribute. They fail because the people commissioning them skip the most important step: defining, in precise terms, what decision the dashboard is supposed to support, or what behavior it is supposed to change.</p>
+    <p>These are different things, and the distinction matters.</p>
+    <p>A decision-support dashboard exists to inform a specific, recurring choice. Which campaigns to reinvest in next quarter. Whether a deal should get additional resources or be disqualified. Whether a market segment is worth pursuing. The measure of success for this kind of dashboard is whether the people who need to make that decision actually use it, and whether their decisions improve as a result.</p>
+    <p>A behavior-change dashboard exists to make a specific pattern visible enough that people act differently. A pipeline coverage ratio displayed in a weekly sales review changes how sales leaders think about sourcing. A customer health score visible to every CSM changes how they prioritize their week. The measure of success here is whether behavior actually changes, not whether the dashboard gets built.</p>
+    <p>Most dashboards are built for neither purpose. They are built to demonstrate that the organization takes data seriously, to satisfy a board request, or to consolidate metrics that were previously scattered across spreadsheets. These are legitimate motivations. They are just not sufficient design briefs.</p>
+    <h2>What Happens Without a Brief</h2>
+    <p>When teams skip the design brief, they default to comprehensiveness. If the dashboard is supposed to answer questions, the safest approach is to include every metric that might be relevant. If it is supposed to change behavior, the safest approach is to surface every behavior that might need changing. The result is a dashboard that covers everything and drives nothing.</p>
+    <p>The problem compounds when multiple stakeholders are involved. The CFO wants margin visibility. The CRO wants pipeline metrics. The CMO wants attribution data. The CEO wants everything on one page. Each request is reasonable in isolation. Combined, they produce a dashboard that is trying to serve four different audiences with four different questions. It serves none of them particularly well.</p>
+    <p>There is also a subtler failure mode: the dashboard gets built around available data rather than necessary data. Teams gravitate toward metrics they can track rather than metrics they need to track. If lead volume is easy to pull from the CRM and pipeline quality is hard to define, lead volume ends up on the dashboard and pipeline quality stays in a spreadsheet. The organization gets visibility into the thing that is easy to measure, not the thing that matters.</p>
+    <h2>A Better Starting Point</h2>
+    <p>The right starting question is not "what should we put on the dashboard?" It is "what decision do we make, or what behavior do we want to change, and how will visibility into the right metric affect it?"</p>
+    <p>This requires being specific in ways that feel uncomfortable. Not "we want better pipeline visibility" but "we want the VP of Sales to be able to see, by the second week of each quarter, whether the team is on track to hit 3x coverage, so they can make sourcing decisions before it's too late to affect the quarter." Not "we want to understand marketing ROI" but "we want to see which campaign types are generating pipeline that closes within 90 days at above-average deal sizes, so we can shift budget allocation before the next planning cycle."</p>
+    <p>The specificity does two things. It tells you exactly which metrics matter and which ones are noise. And it immediately surfaces whether the data infrastructure actually supports the question — which is often when teams discover that the real problem is upstream of the dashboard.</p>
+    <p>This kind of specificity also forces a conversation about who owns the decision or the behavior in question. Dashboards without owners get built and then drift. Someone needs to be responsible for acting on what the dashboard shows. If nobody is named, the dashboard becomes a reporting artifact rather than a decision tool.</p>
+    <h2>The Behavior Question Is Harder Than It Looks</h2>
+    <p>Of the two design briefs, behavior change is the harder one to execute well. Decision support is relatively forgiving — if the dashboard shows the right information at the right time, the decision-maker can usually figure out what to do with it. Behavior change requires understanding why the current behavior exists and whether visibility alone is sufficient to alter it.</p>
+    <p>In most organizations, it is not. Salespeople don't ignore pipeline hygiene because they lack visibility into the problem. They ignore it because the incentive structure rewards closing deals, not maintaining CRM records, and because nobody has ever made it clear that pipeline accuracy is part of their job. A dashboard that shows individual rep pipeline quality will create awareness. It will not change behavior unless that data is connected to a consequence — a conversation in the weekly review, a coaching protocol, a metric in the performance evaluation.</p>
+    <p>This is why the most effective BI implementations are designed backward from an accountability structure, not forward from a data model. The question is not just "what should we track?" but "who sees this, when do they see it, what are they expected to do about it, and what happens if they don't?"</p>
+    <h2>The Simplest Version of the Fix</h2>
+    <p>Before any dashboard project starts, the team commissioning it should be able to answer three questions in writing:</p>
+    <p>What specific decision will this dashboard support, or what specific behavior will it change? Who is responsible for acting on what the dashboard shows? How will we know in six months whether this dashboard is working?</p>
+    <p>If those three questions don't have clear answers, the dashboard project is not ready to start. The work at that stage is not data engineering. It is requirements definition, and it deserves at least as much time and attention as the technical implementation that follows.</p>
+    <p>The organizations that get business intelligence right are not necessarily the ones with the best data infrastructure or the most sophisticated tools. They are the ones that treat the question as the hard part — and treat the dashboard as the easy part that comes after.</p>
+  </div>
+  <div class="essay-footer">
+    <div class="essay-footer-author">David Hopper · Commercial Operations &amp; Strategy</div>
+    <a href="/" class="essay-footer-link">dahopper.com →</a>
+  </div>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "buildCommand": "npm run build:all",
+  "outputDirectory": "dist",
+  "rewrites": [
+    { "source": "/tools/gtm-coverage/(.*)", "destination": "/tools/gtm-coverage/index.html" },
+    { "source": "/tools/win-loss/(.*)",      "destination": "/tools/win-loss/index.html" },
+    { "source": "/tools/commercial-scorecard/(.*)", "destination": "/tools/commercial-scorecard/index.html" },
+    { "source": "/tools/churn-scorecard/(.*)", "destination": "/tools/churn-scorecard/index.html" },
+    { "source": "/tools/gtm-org/(.*)",       "destination": "/tools/gtm-org/index.html" },
+    { "source": "/tools/priming-window/(.*)", "destination": "/tools/priming-window/index.html" },
+    { "source": "/tools/gtm-teardown/(.*)",  "destination": "/tools/gtm-teardown/index.html" },
+    { "source": "/tools/deal-memo/(.*)",     "destination": "/tools/deal-memo/index.html" }
+  ]
+}
