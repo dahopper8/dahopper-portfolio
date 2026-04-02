@@ -71,7 +71,7 @@ function OptionBtn({ options, value, onChange }) {
           borderLeft: value === opt.value ? `3px solid ${T.accent}` : `3px solid transparent`,
           borderRadius: 6, cursor: "pointer",
           fontFamily: T.sans, fontSize: 13,
-          color: value === opt.value ? T.accentText : T.textSecondary,
+          color: value === opt.value ? "#166534" : T.textSecondary,
           fontWeight: value === opt.value ? 500 : 400,
           transition: "all 0.15s"
         }}>{opt.label}</button>

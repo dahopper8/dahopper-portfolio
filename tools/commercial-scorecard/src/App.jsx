@@ -66,7 +66,7 @@ const dimensions = [
 const maturityLevels = [
   { min: 0,  max: 25,  label: "Ad Hoc",    color: T.danger,  description: "Commercial operations are informal and founder/rep-dependent. Value leakage is significant and often invisible. The business is growing despite its commercial infrastructure, not because of it." },
   { min: 26, max: 50,  label: "Developing", color: T.warning, description: "Core processes exist but aren't enforced consistently. Revenue is predictable in good quarters but fragile. Leadership has identified the gaps; the organization hasn't yet closed them." },
-  { min: 51, max: 75,  label: "Defined",    color: T.accent,  description: "Commercial infrastructure is documented and largely followed. Forecasting is reliable. Marketing and sales are aligned on the basics. The ceiling is execution consistency and measurement rigor." },
+  { min: 51, max: 75,  label: "Defined",    color: "#2563eb",  description: "Commercial infrastructure is documented and largely followed. Forecasting is reliable. Marketing and sales are aligned on the basics. The ceiling is execution consistency and measurement rigor." },
   { min: 76, max: 100, label: "Optimized",  color: T.success, description: "The commercial engine is a competitive advantage. Attribution is tight, pricing is disciplined, and the ICP is continuously refined by data. The team is improving the system, not just operating it." },
 ];
 
@@ -170,7 +170,7 @@ export default function CommercialScorecard() {
                 {complete && <span style={{ fontFamily: T.mono, fontSize: 11, color: T.success, fontWeight: 600 }}>✓ Complete</span>}
               </div>
               <div style={{ background: "#e5e7eb", height: 3, borderRadius: 2 }}>
-                <div style={{ background: T.accent, height: "100%", borderRadius: 2, width: `${(totalAnswered / totalQuestions) * 100}%`, transition: "width 0.3s" }} />
+                <div style={{ background: "#475569", height: "100%", borderRadius: 2, width: `${(totalAnswered / totalQuestions) * 100}%`, transition: "width 0.3s" }} />
               </div>
             </div>
 
@@ -179,7 +179,7 @@ export default function CommercialScorecard() {
                 <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16, paddingBottom: 10, borderBottom: `1px solid ${T.cardBorder}` }}>
                   <h2 style={{ margin: 0, fontSize: 15, fontWeight: 700, color: T.textPrimary }}>{dim.label}</h2>
                   {dimScore(dim) !== null && (
-                    <span style={{ fontFamily: T.mono, fontSize: 11, color: T.accent, fontWeight: 600 }}>{dimScore(dim)}%</span>
+                    <span style={{ fontFamily: T.mono, fontSize: 11, color: T.textPrimary, fontWeight: 600 }}>{dimScore(dim)}%</span>
                   )}
                 </div>
 
@@ -200,9 +200,9 @@ export default function CommercialScorecard() {
                           {[1, 2, 3, 4].map(v => (
                             <button key={v} onClick={() => setScore(dim.id, i, v)} style={{
                               width: 36, height: 36, borderRadius: 6,
-                              background: val === v ? T.accent : val !== null && v <= val ? T.accentLight : "#f9fafb",
-                              color: val === v ? "white" : val !== null && v <= val ? T.accentText : T.textMuted,
-                              border: val === v ? `2px solid ${T.accent}` : `2px solid ${T.cardBorder}`,
+                              background: val === v ? "#1e293b" : val !== null && v <= val ? "#f1f5f9" : "#f9fafb",
+                              color: val === v ? "white" : val !== null && v <= val ? T.textPrimary : T.textMuted,
+                              border: val === v ? `2px solid #1e293b` : `2px solid ${T.cardBorder}`,
                               fontWeight: 700, fontSize: 13, cursor: "pointer",
                               transition: "all 0.15s", fontFamily: T.mono
                             }}>{v}</button>
@@ -258,7 +258,7 @@ export default function CommercialScorecard() {
                   {dimensions.map(dim => {
                     const s = dimScore(dim);
                     if (s === null) return null;
-                    const color = s >= 76 ? T.success : s >= 51 ? T.accent : s >= 26 ? T.warning : T.danger;
+                    const color = s >= 76 ? T.success : s >= 51 ? "#2563eb" : s >= 26 ? T.warning : T.danger;
                     return <ScoreBar key={dim.id} label={dim.label} score={s} color={color} />;
                   })}
                 </div>

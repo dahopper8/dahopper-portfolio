@@ -139,11 +139,11 @@ function ScaleInput({ value, onChange, low, high }) {
         {[1, 2, 3, 4, 5].map(v => (
           <button key={v} onClick={() => onChange(v)} style={{
             flex: 1, padding: "9px 0",
-            background: value === v ? T.accent : value !== null && v <= value ? T.accentLight : "#f9fafb",
-            border: value === v ? `2px solid ${T.accent}` : `2px solid ${T.cardBorder}`,
+            background: value === v ? "#1e293b" : value !== null && v <= value ? "#f1f5f9" : "#f9fafb",
+            border: value === v ? `2px solid #1e293b` : `2px solid ${T.cardBorder}`,
             borderRadius: 6, cursor: "pointer",
             fontFamily: T.mono, fontSize: 13, fontWeight: 700,
-            color: value === v ? "white" : value !== null && v <= value ? T.accentText : T.textMuted,
+            color: value === v ? "white" : value !== null && v <= value ? T.textPrimary : T.textMuted,
             transition: "all 0.15s"
           }}>{v}</button>
         ))}
@@ -324,7 +324,7 @@ export default function WinLossAnalyzer() {
                   <div key={label} style={{ marginBottom: 12 }}>
                     <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 5 }}>
                       <span style={{ fontSize: 12, color: T.textMuted }}>{label}</span>
-                      <span style={{ fontFamily: T.mono, fontSize: 11, color: T.accent, fontWeight: 600 }}>{Math.round((score/5)*100)}%</span>
+                      <span style={{ fontFamily: T.mono, fontSize: 11, color: T.textPrimary, fontWeight: 600 }}>{Math.round((score/5)*100)}%</span>
                     </div>
                     <div style={{ background: "#e5e7eb", height: 5, borderRadius: 3 }}>
                       <div style={{ background: T.accent, height: "100%", borderRadius: 3, width: `${(score/5)*100}%`, transition: "width 0.8s" }} />

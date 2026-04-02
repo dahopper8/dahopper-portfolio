@@ -143,8 +143,8 @@ function SegBtn({ options, value, onChange }) {
 }
 
 function MetricCard({ label, value, sub, highlight, warning }) {
-  const borderColor = warning ? T.danger : highlight ? T.accent : T.cardBorder;
-  const labelColor  = warning ? T.danger : highlight ? T.accent : T.textMuted;
+  const borderColor = warning ? T.danger : highlight ? "#334155" : T.cardBorder;
+  const labelColor  = warning ? T.danger : T.textMuted;
   const valueColor  = warning ? T.danger : T.textPrimary;
 
   return (
