@@ -105,7 +105,7 @@ function SliderInput({ value, onChange, min, max, step, format }) {
   return (
     <div>
       <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
-        <span style={{ fontFamily: T.mono, fontSize: 14, color: T.accent, fontWeight: 600 }}>
+        <span style={{ fontFamily: T.mono, fontSize: 14, color: T.textPrimary, fontWeight: 700 }}>
           {format(value)}
         </span>
         <span style={{ fontFamily: T.mono, fontSize: 11, color: T.textFaint }}>
