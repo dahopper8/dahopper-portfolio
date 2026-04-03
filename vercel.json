@@ -95,7 +95,7 @@
       "destination": "/tools/deal-memo/index.html"
     },
     {
-      "source": "/writing/(.*)",
+      "source": "/writing/:path*",
       "destination": "/writing/:path*/index.html"
     }
   ]
