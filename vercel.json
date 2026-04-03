@@ -3,6 +3,34 @@
   "outputDirectory": "dist",
   "rewrites": [
     {
+      "source": "/operator",
+      "destination": "/operator/index.html"
+    },
+    {
+      "source": "/operator/ced",
+      "destination": "/operator/ced/index.html"
+    },
+    {
+      "source": "/operator/ced/(.*)",
+      "destination": "/operator/ced/index.html"
+    },
+    {
+      "source": "/operator/cdd",
+      "destination": "/operator/cdd/index.html"
+    },
+    {
+      "source": "/operator/cdd/(.*)",
+      "destination": "/operator/cdd/index.html"
+    },
+    {
+      "source": "/tools/ced",
+      "destination": "/tools/ced/index.html"
+    },
+    {
+      "source": "/tools/ced/(.*)",
+      "destination": "/tools/ced/index.html"
+    },
+    {
       "source": "/tools/gtm-coverage",
       "destination": "/tools/gtm-coverage/index.html"
     },

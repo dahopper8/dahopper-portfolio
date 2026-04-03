@@ -27,6 +27,11 @@ for (const dir of writingDirs) {
   console.log(`✓ writing/${dir}`);
 }
 
+// Copy operator suite landing page
+fs.mkdirSync(path.join(dist, 'operator'), { recursive: true });
+fs.copyFileSync(path.join(root, 'operator', 'index.html'), path.join(dist, 'operator', 'index.html'));
+console.log('✓ operator/index.html');
+
 // Build each React tool
 const toolDirs = fs.readdirSync(path.join(root, 'tools'));
 for (const tool of toolDirs) {
@@ -34,15 +39,25 @@ for (const tool of toolDirs) {
   if (!fs.existsSync(path.join(toolPath, 'package.json'))) continue;
 
   console.log(`Building tools/${tool}...`);
-  
-  // Install deps and build
   execSync('npm install --silent', { cwd: toolPath, stdio: 'inherit' });
   execSync(`npx vite build --outDir ${path.join(dist, 'tools', tool)} --base /tools/${tool}/`, { 
-    cwd: toolPath, 
-    stdio: 'inherit' 
+    cwd: toolPath, stdio: 'inherit' 
   });
-  
   console.log(`✓ tools/${tool}`);
+}
+
+// Build operator suite tools
+const operatorToolDirs = ['ced', 'cdd'];
+for (const tool of operatorToolDirs) {
+  const toolPath = path.join(root, 'operator', tool);
+  if (!fs.existsSync(path.join(toolPath, 'package.json'))) continue;
+
+  console.log(`Building operator/${tool}...`);
+  execSync('npm install --silent', { cwd: toolPath, stdio: 'inherit' });
+  execSync(`npx vite build --outDir ${path.join(dist, 'operator', tool)} --base /operator/${tool}/`, { 
+    cwd: toolPath, stdio: 'inherit' 
+  });
+  console.log(`✓ operator/${tool}`);
 }
 
 console.log('\nBuild complete.');

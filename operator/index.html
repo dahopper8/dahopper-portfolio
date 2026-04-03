@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meridian · Commercial Intelligence Suite · David Hopper</title>
+  <meta name="description" content="Meridian is a two-tool commercial intelligence suite for PE-backed environments. A pre-close due diligence diagnostic and a post-close execution assessment." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #faf8f4;
+      --header-bg: #0f172a;
+      --header-border: #1e293b;
+      --card-bg: #ffffff;
+      --border: #e0dbd4;
+      --text: #1a1917;
+      --muted: #6b6560;
+      --faint: #9a9690;
+      --accent: #1a6b3c;
+      --accent-light: #f0fdf4;
+      --mono: 'DM Mono', monospace;
+      --serif: 'Playfair Display', Georgia, serif;
+      --sans: 'Inter', sans-serif;
+    }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); }
+
+    nav {
+      background: var(--header-bg);
+      border-bottom: 1px solid var(--header-border);
+      padding: 18px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .nav-wordmark {
+      font-family: var(--serif);
+      font-size: 18px;
+      font-weight: 700;
+      color: #f1f5f9;
+      letter-spacing: -0.01em;
+    }
+    .nav-wordmark span { color: var(--accent); }
+    .nav-meta {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: #334155;
+      text-align: right;
+      line-height: 1.7;
+    }
+    .nav-meta a { color: var(--accent); text-decoration: none; }
+
+    .hero {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 72px 48px 56px;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(36px, 5vw, 54px);
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+      max-width: 640px;
+    }
+    .hero-sub {
+      font-size: 17px;
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 560px;
+      margin-bottom: 40px;
+    }
+    .hero-context {
+      display: flex;
+      gap: 32px;
+    }
+    .hero-context-item {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--faint);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      line-height: 1.6;
+    }
+    .hero-context-item strong {
+      display: block;
+      color: var(--muted);
+      font-weight: 500;
+      margin-bottom: 2px;
+    }
+
+    .tools {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 56px 48px 80px;
+    }
+    .tools-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--faint);
+      margin-bottom: 28px;
+    }
+    .tool-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 48px;
+    }
+    .tool-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 32px;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .tool-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+    .tool-card:hover::before { transform: scaleX(1); }
+    .tool-card:hover { border-color: #c8bfb5; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+
+    .tool-phase {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+    .tool-name {
+      font-family: var(--serif);
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.2;
+      margin-bottom: 14px;
+      letter-spacing: -0.01em;
+    }
+    .tool-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+      flex: 1;
+      margin-bottom: 24px;
+    }
+    .tool-dimensions {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 24px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+    .tool-dimension {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--faint);
+      letter-spacing: 0.04em;
+    }
+    .tool-dimension::before {
+      content: '';
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+    .tool-cta {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: gap 0.2s;
+    }
+    .tool-card:hover .tool-cta { gap: 10px; }
+
+    .flow {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 28px 32px;
+      display: flex;
+      gap: 0;
+      align-items: stretch;
+    }
+    .flow-step {
+      flex: 1;
+      padding: 0 24px;
+      position: relative;
+    }
+    .flow-step:first-child { padding-left: 0; }
+    .flow-step:last-child { padding-right: 0; }
+    .flow-step + .flow-step::before {
+      content: '→';
+      position: absolute;
+      left: -10px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--mono);
+      font-size: 14px;
+      color: var(--faint);
+    }
+    .flow-num {
+      font-family: var(--mono);
+      font-size: 9px;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .flow-title {
+      font-family: var(--serif);
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .flow-desc {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 20px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-left {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--faint);
+    }
+    .footer-right a {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    @media (max-width: 700px) {
+      nav, .hero, .tools, footer { padding-left: 24px; padding-right: 24px; }
+      .tool-grid { grid-template-columns: 1fr; }
+      .hero-context { flex-wrap: wrap; gap: 16px; }
+      .flow { flex-direction: column; gap: 20px; }
+      .flow-step + .flow-step::before { display: none; }
+      .flow-step { padding: 0; border-top: 1px solid var(--border); padding-top: 20px; }
+      .flow-step:first-child { border-top: none; padding-top: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-wordmark">Meridian<span>.</span></div>
+    <div class="nav-meta">
+      David Hopper · Commercial Operations<br>
+      <a href="https://dahopper.com">dahopper.com</a>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-eyebrow">Commercial Intelligence Suite · PE-Backed Environments</div>
+    <h1 class="hero-title">Find true north in the commercial engine.</h1>
+    <p class="hero-sub">Meridian is a two-tool suite for operators and operating partners. A pre-close diagnostic that maps commercial integration risk. A post-close assessment that tracks execution against the value creation thesis.</p>
+    <div class="hero-context">
+      <div class="hero-context-item"><strong>Built for</strong>Operating partners · Portfolio CCOs · CEOs</div>
+      <div class="hero-context-item"><strong>Scope</strong>Commercial operations · GTM · Revenue</div>
+      <div class="hero-context-item"><strong>Output</strong>Operator view + board-ready summary</div>
+    </div>
+  </div>
+
+  <div class="tools">
+    <div class="tools-label">Two tools. One commercial thesis.</div>
+
+    <div class="tool-grid">
+
+      <a href="/operator/cdd" class="tool-card">
+        <div class="tool-phase">Pre-Close · Commercial Due Diligence</div>
+        <div class="tool-name">Commercial Diligence Diagnostic</div>
+        <div class="tool-desc">Maps the commercial integration risk of a target acquisition. Goes beyond P&amp;L analysis to assess how hard this business will be to operate and grow post-close.</div>
+        <div class="tool-dimensions">
+          <div class="tool-dimension">Commercial Data Integrity</div>
+          <div class="tool-dimension">Revenue Model Clarity</div>
+          <div class="tool-dimension">Sales Motion Transferability</div>
+          <div class="tool-dimension">Customer Relationship Risk</div>
+          <div class="tool-dimension">Commercial Stack Readiness</div>
+        </div>
+        <div class="tool-cta">Run diagnostic →</div>
+      </a>
+
+      <a href="/operator/ced" class="tool-card">
+        <div class="tool-phase">Post-Close · Execution Assessment</div>
+        <div class="tool-name">Commercial Execution Diagnostic</div>
+        <div class="tool-desc">Assesses commercial execution across the five dimensions that consistently determine whether a PE-backed company hits its value creation plan. Output structured for operator use and board reporting.</div>
+        <div class="tool-dimensions">
+          <div class="tool-dimension">Revenue Architecture</div>
+          <div class="tool-dimension">Pipeline Integrity</div>
+          <div class="tool-dimension">Pricing Discipline</div>
+          <div class="tool-dimension">Customer Base Health</div>
+          <div class="tool-dimension">Commercial Org Effectiveness</div>
+        </div>
+        <div class="tool-cta">Run diagnostic →</div>
+      </a>
+
+    </div>
+
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-num">Before close</div>
+        <div class="flow-title">Map the risk</div>
+        <div class="flow-desc">Use the Commercial Diligence Diagnostic to understand integration complexity, key person risk, data quality, and commercial stack compatibility before signing.</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">Days 1–90</div>
+        <div class="flow-title">Establish baseline</div>
+        <div class="flow-desc">Run the Commercial Execution Diagnostic in the first 90 days to establish a scored baseline across all five execution dimensions. This becomes your operating benchmark.</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">Quarterly</div>
+        <div class="flow-title">Track progress</div>
+        <div class="flow-desc">Re-run the execution diagnostic each quarter to measure improvement against baseline. Output maps directly to board reporting cadence.</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">Pre-exit</div>
+        <div class="flow-title">Document the thesis</div>
+        <div class="flow-desc">A complete diagnostic history demonstrates deliberate value creation in commercial operations — the kind of evidence that commands a premium in a sell-side process.</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-left">Meridian · Commercial Intelligence Suite · David Hopper</div>
+    <div class="footer-right"><a href="https://dahopper.com">dahopper.com →</a></div>
+  </footer>
+
+</body>
+</html>

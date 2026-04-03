@@ -16,6 +16,46 @@ const T = {
 };
 
 // ─── DATA ─────────────────────────────────────────────────────────────────────
+
+// ─── INDUSTRY PROFILES ────────────────────────────────────────────────────────
+const INDUSTRIES = {
+  saas: {
+    label: "B2B SaaS",
+    rfpCommon: false, incumbentStrong: false, relationshipDriven: false,
+    cycleNorm: "3–9 months", context: "Competitive, product-led evaluation cycles. Buyers are educated. Demo quality and proof points matter most.",
+  },
+  industrial: {
+    label: "Industrial / Manufacturing",
+    rfpCommon: true, incumbentStrong: true, relationshipDriven: true,
+    cycleNorm: "6–18 months", context: "Distributor and field sales model. Incumbent relationships are the primary barrier. Trust and references outweigh product features.",
+  },
+  professional_services: {
+    label: "Professional Services",
+    rfpCommon: true, incumbentStrong: true, relationshipDriven: true,
+    cycleNorm: "2–6 months", context: "Relationship and reputation-driven. The team being proposed matters as much as the firm. Referrals and past client relationships are the real pipeline.",
+  },
+  healthcare: {
+    label: "Healthcare & Life Sciences",
+    rfpCommon: true, incumbentStrong: true, relationshipDriven: false,
+    cycleNorm: "9–18 months", context: "Committee-driven, heavily regulated. Clinical evidence and compliance documentation are table stakes. GPO and IDN dynamics frequently determine outcome.",
+  },
+  financial_services: {
+    label: "Financial Services",
+    rfpCommon: true, incumbentStrong: true, relationshipDriven: true,
+    cycleNorm: "6–12 months", context: "Compliance and risk tolerance shape every decision. Incumbent vendors have enormous switching cost protection. Executive sponsor is more critical here than in most industries.",
+  },
+  logistics: {
+    label: "Logistics & Supply Chain",
+    rfpCommon: true, incumbentStrong: true, relationshipDriven: false,
+    cycleNorm: "3–9 months", context: "RFP-dominant with price as a primary criterion. Operational track record and references from similar shippers matter. Displacement requires a clear failure trigger from the incumbent.",
+  },
+  government: {
+    label: "Government & Public Sector",
+    rfpCommon: true, incumbentStrong: true, relationshipDriven: false,
+    cycleNorm: "12–24 months", context: "Procurement-ruled. Compliance with solicitation requirements is non-negotiable. Relationships matter in pre-solicitation phase but cannot legally influence the formal process.",
+  },
+};
+
 const SECTIONS = [
   {
     id: "deal", label: "Deal Context",
@@ -60,6 +100,7 @@ const SECTIONS = [
 
 // ─── ANALYSIS ─────────────────────────────────────────────────────────────────
 function analyze(inputs) {
+  const industry = INDUSTRIES[inputs.industry] || INDUSTRIES.saas;
   const champArr = [inputs.championStrength, inputs.executiveAccess, inputs.consensusWidth].filter(v => v !== null);
   const respArr  = [inputs.requirementsAlignment, inputs.differentiation, inputs.proofPoints, inputs.pricingClarity].filter(v => v !== null);
   const procArr  = [inputs.discoveryDepth, inputs.competitiveIntel].filter(v => v !== null);
@@ -76,6 +117,8 @@ function analyze(inputs) {
   const positives = [];
 
   if (inputs.championStrength !== null && inputs.championStrength <= 2) patterns.push({ label: "Weak Champion", detail: "A passive or weak champion is the single most common cause of preventable losses. They can't navigate internal politics, can't pre-sell the committee, and won't protect you when the CFO pushes back on price.", severity: "high" });
+  if (industry.incumbentStrong && inputs.incumbent === "yes" && inputs.rfpOrigin !== "shaped") patterns.push({ label: "Strong Incumbent in a Relationship-Driven Market", detail: `In ${industry.label}, incumbent vendors benefit from trust built over years of delivery. Without a clear failure trigger or a champion actively driving change, the default outcome is renewal. Pre-RFP access and executive relationships are your primary lever.`, severity: "high" });
+  if (industry.rfpCommon && inputs.rfpOrigin === "shaped") positives.push({ label: "Shaped the RFP in an RFP-Dominant Market", detail: `In ${industry.label}, formal procurement processes are the norm. Influencing the evaluation criteria before the solicitation is published is your highest-leverage pre-sale activity — and uncommon enough to be a genuine advantage.` });
   if (inputs.championRisk === "left") patterns.push({ label: "Champion Instability", detail: "A champion who left or changed roles mid-cycle means the relationship equity you built doesn't transfer automatically. This deal needed to be re-qualified from the moment that person's role changed.", severity: "high" });
   if (inputs.executiveAccess !== null && inputs.executiveAccess >= 4) positives.push({ label: "Strong Executive Access", detail: "Direct C-suite access is one of the strongest predictors of win rate in competitive deals. It means you could address objections that never surfaced in the formal process." });
   if (inputs.rfpOrigin === "competitor") patterns.push({ label: "Competitor-Shaped RFP", detail: "When a competitor writes the evaluation criteria, you're playing an away game from day one. The requirements reflect their strengths. Your energy should go toward reframing evaluation criteria, not answering them.", severity: "high" });
@@ -90,12 +133,36 @@ function analyze(inputs) {
   if (inputs.responseTimeliness === "late") patterns.push({ label: "Late Response", detail: "A late response signals disorganization regardless of content quality. Procurement teams make inferences about your operational capability from how you handle their process.", severity: "medium" });
 
   const playbook = [];
-  if (patterns.some(p => p.label.includes("Champion"))) playbook.push("Build a champion qualification scorecard into your sales process. Before a deal progresses past discovery, your champion should be able to articulate the business case, have access to the economic buyer, and be willing to run internal interference.");
-  if (patterns.some(p => p.label.includes("RFP"))) playbook.push("Invest in pre-RFP engagement. The goal is to be in strategic conversations 6–12 months before a formal process starts — when you can still influence how the problem is framed and what success looks like.");
-  if (patterns.some(p => p.label.includes("Discovery"))) playbook.push("Redesign your discovery process to surface unstated needs. The questions that matter most are about politics, risk tolerance, and what a failed implementation would mean for the buyer's career — not feature requirements.");
-  if (patterns.some(p => p.label.includes("Proof"))) playbook.push("Build a reference architecture by segment and use case. Map your best customers to their firmographic profile so you can deploy the most relevant proof point for each new deal.");
-  if (patterns.some(p => p.label.includes("Differentiation"))) playbook.push("Before any proposal goes out, the team should be able to articulate in two sentences why this specific buyer should choose you over the specific alternatives they're evaluating.");
-  if (playbook.length === 0 && positives.length > 0) playbook.push("This deal shows strong commercial execution across the key dimensions. Document what worked — champion development, discovery approach, response quality — and build it into onboarding and deal review frameworks.");
+  if (patterns.some(p => p.label.includes("Champion"))) playbook.push({
+    title: "Champion Qualification",
+    action: "Before your next deal advances past discovery, run a champion test: can they articulate the business case in their own words, do they have a path to the economic buyer, and have they taken any internal action on your behalf? If the answer to any of these is no, you don't have a champion — you have a contact. Treat the deal accordingly.",
+    next: "Build a one-page champion qualification checklist into your CRM stage-gate criteria. Make it a required field, not a suggested one."
+  });
+  if (patterns.some(p => p.label.includes("RFP"))) playbook.push({
+    title: "Pre-RFP Positioning",
+    action: "Map every account in your pipeline that is 6–12 months from a likely formal process. For each one, identify: who is shaping the evaluation internally, what problem they're trying to solve, and whether you've had a conversation that wasn't triggered by an RFP. If you haven't, you're already late.",
+    next: "Schedule a strategic conversation with one target account this week that has no active opportunity. The goal is to understand their problem, not to sell. Ask what a successful outcome looks like for them in 18 months."
+  });
+  if (patterns.some(p => p.label.includes("Discovery"))) playbook.push({
+    title: "Discovery Depth",
+    action: "The questions that surface real buying criteria are uncomfortable: Who loses their job if this fails? Who in the organization is opposed to change? What does the buyer's boss think about this initiative? What happened the last time they tried to solve this problem? Most discovery conversations never get here. Yours need to.",
+    next: "Review the last five lost deals and identify the question you didn't ask that would have changed how you approached the deal. Add that question to your discovery framework."
+  });
+  if (patterns.some(p => p.label.includes("Proof"))) playbook.push({
+    title: "Proof Point Architecture",
+    action: "Generic case studies don't reduce risk — they just demonstrate that you've had customers. What moves committees is a reference who looks like them: same industry, similar company size, similar problem, and willing to take a call. Build a reference map that lets you deploy the right customer for each deal within 48 hours of being asked.",
+    next: "Identify your three best customers and turn them into structured references this quarter. Document the specific outcome, the timeline, and the situation they were in before they bought."
+  });
+  if (patterns.some(p => p.label.includes("Differentiation"))) playbook.push({
+    title: "Competitive Positioning",
+    action: "Before your next proposal goes out, write down in two sentences: why this buyer, given their specific situation, should choose you over the alternatives they're actually considering. Not a generic value proposition — the specific reason for this account. If you can't write it in two sentences, you don't have a position. You have a feature list.",
+    next: "Run a win/loss debrief with your last three wins and ask the buyers why they chose you. Their language is your positioning, not yours."
+  });
+  if (playbook.length === 0 && positives.length > 0) playbook.push({
+    title: "Document and Replicate",
+    action: "This deal shows strong execution across the key dimensions. The risk now is that what worked lives in one person's head rather than in your process. Interview the deal team while the memory is fresh: what did you do in discovery that you don't always do, what made the champion so effective, and what would you do differently if you ran this deal again?",
+    next: "Write up a one-page deal debrief and share it with the full sales team this week. Include what you did, why it worked, and what the replicable elements are."
+  });
 
   return { winSignal, championScore, responseScore, processScore, patterns, positives, playbook, outcome: inputs.outcome };
 }
@@ -112,7 +179,7 @@ function buildVerdict(inputs, results) {
   return                         { label: "Competitive Loss",  color: T.warning, desc: "No dominant failure mode — this was a close call that went the other way. Focus on the marginal differentiators." };
 }
 
-const defaultInputs = Object.fromEntries(SECTIONS.flatMap(s => s.fields.map(f => [f.id, null])));
+const defaultInputs = { industry: 'saas', ...Object.fromEntries(SECTIONS.flatMap(s => s.fields.map(f => [f.id, null]))) };
 
 // ─── COMPONENTS ───────────────────────────────────────────────────────────────
 function SegBtn({ options, value, onChange }) {
@@ -176,9 +243,11 @@ function PatternCard({ pattern }) {
 
 // ─── APP ──────────────────────────────────────────────────────────────────────
 export default function WinLossAnalyzer() {
-  const [inputs, setInputs]           = useState(defaultInputs);
+  const [inputs, setInputs]               = useState(defaultInputs);
   const [activeSection, setActiveSection] = useState(0);
-  const [showResults, setShowResults] = useState(false);
+  const [showResults, setShowResults]     = useState(false);
+  const [deals, setDeals]                 = useState([]);
+  const [view, setView]                   = useState("analyze"); // "analyze" | "portfolio"
 
   const set = (key, val) => setInputs(p => ({ ...p, [key]: val }));
 
@@ -188,6 +257,30 @@ export default function WinLossAnalyzer() {
 
   const results = analyze(inputs);
   const verdict = buildVerdict(inputs, results);
+
+  const saveDeal = () => {
+    setDeals(prev => [...prev, { inputs: { ...inputs }, results: { ...results }, verdict: { ...verdict }, savedAt: Date.now() }]);
+  };
+
+  // Portfolio aggregates
+  const wonDeals  = deals.filter(d => d.inputs.outcome === "won");
+  const lostDeals = deals.filter(d => d.inputs.outcome === "lost");
+  const avgWinScore  = wonDeals.length  > 0 ? Math.round(wonDeals.reduce((a,d) => a + d.results.winSignal, 0) / wonDeals.length)  : null;
+  const avgLossScore = lostDeals.length > 0 ? Math.round(lostDeals.reduce((a,d) => a + d.results.winSignal, 0) / lostDeals.length) : null;
+
+  // Pattern frequency across all deals
+  const patternCounts = {};
+  deals.forEach(d => d.results.patterns.forEach(p => { patternCounts[p.label] = (patternCounts[p.label]||0)+1; }));
+  const topPatterns = Object.entries(patternCounts).sort((a,b)=>b[1]-a[1]).slice(0,5);
+
+  // Loss reason distribution
+  const lossReasons = {};
+  deals.filter(d=>d.inputs.lossReason&&d.inputs.lossReason!=="na").forEach(d => { lossReasons[d.inputs.lossReason]=(lossReasons[d.inputs.lossReason]||0)+1; });
+
+  // Section score averages across lost deals
+  const avgChampion = deals.length > 0 ? Math.round(deals.reduce((a,d)=>a+(d.results.championScore||0),0)/deals.length*20) : null;
+  const avgResponse = deals.length > 0 ? Math.round(deals.reduce((a,d)=>a+(d.results.responseScore||0),0)/deals.length*20) : null;
+  const avgProcess  = deals.length > 0 ? Math.round(deals.reduce((a,d)=>a+(d.results.processScore||0),0)/deals.length*20) : null;
 
   return (
     <div style={{ minHeight: "100vh", background: T.pageBg, fontFamily: T.sans, color: T.textPrimary }}>
@@ -208,15 +301,116 @@ export default function WinLossAnalyzer() {
             <h1 style={{ margin: 0, fontSize: 20, fontWeight: 700, color: "#f1f5f9", letterSpacing: "-0.02em" }}>Win / Loss Analyzer</h1>
             <p style={{ margin: "3px 0 0", color: "#64748b", fontSize: 13 }}>Diagnose what actually drove the outcome — and what to change.</p>
           </div>
-          <div style={{ fontFamily: T.mono, fontSize: 10, color: "#334155", textAlign: "right", lineHeight: 1.6 }}>
-            David Hopper<br />Commercial Operations
+          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            {deals.length >= 3 && (
+              <div style={{ display: "flex", gap: 1, background: T.headerBorder, borderRadius: 7, padding: 2 }}>
+                {[{v:"analyze",l:"Analyze"},{v:"portfolio",l:`Portfolio (${deals.length})`}].map(m=>(
+                  <button key={m.v} onClick={()=>setView(m.v)} style={{
+                    padding:"8px 14px", background:view===m.v?"#1e293b":"transparent",
+                    border:"none", borderRadius:5, cursor:"pointer",
+                    fontFamily:T.mono, fontSize:10, letterSpacing:"0.08em", textTransform:"uppercase",
+                    color:view===m.v?"#f1f5f9":"#94a3b8", transition:"all 0.15s", fontWeight:view===m.v?600:400
+                  }}>{m.l}</button>
+                ))}
+              </div>
+            )}
+            <div style={{ fontFamily: T.mono, fontSize: 10, color: "#334155", textAlign: "right", lineHeight: 1.6 }}>
+              David Hopper<br />Commercial Operations
+            </div>
           </div>
         </div>
       </div>
 
       <div style={{ maxWidth: 960, margin: "0 auto", padding: "32px 40px 80px" }}>
 
-        {!showResults ? (
+        {view === "portfolio" && deals.length >= 3 ? (
+          <div style={{ animation: "fadeIn 0.3s ease" }}>
+            {/* Summary row */}
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 12, marginBottom: 20 }}>
+              {[
+                { label: "Deals Logged",    value: deals.length,                     color: "#334155" },
+                { label: "Win Rate",         value: deals.filter(d=>d.inputs.outcome==="won").length > 0 ? `${Math.round((wonDeals.length/deals.length)*100)}%` : "—", color: T.success },
+                { label: "Avg Win Score",    value: avgWinScore  !== null ? avgWinScore  : "—", color: T.success },
+                { label: "Avg Loss Score",   value: avgLossScore !== null ? avgLossScore : "—", color: T.danger  },
+              ].map(m=>(
+                <div key={m.label} style={{ background: T.cardBg, border: `1px solid ${T.cardBorder}`, borderTop: `3px solid ${m.color}`, borderRadius: 8, padding: "16px 18px" }}>
+                  <div style={{ fontFamily: T.mono, fontSize: 10, letterSpacing: "0.1em", textTransform: "uppercase", color: T.textMuted, marginBottom: 8 }}>{m.label}</div>
+                  <div style={{ fontFamily: T.mono, fontSize: 26, fontWeight: 700, color: m.color, lineHeight: 1 }}>{m.value}</div>
+                </div>
+              ))}
+            </div>
+
+            {/* Execution scores */}
+            {avgChampion !== null && (
+              <div style={{ background: T.cardBg, border: `1px solid ${T.cardBorder}`, borderRadius: 10, padding: "20px", marginBottom: 20, boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
+                <div style={{ fontFamily: T.mono, fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase", color: T.textMuted, marginBottom: 16 }}>Average Execution Scores Across All Deals</div>
+                {[
+                  { label: "Champion & Stakeholders", score: avgChampion },
+                  { label: "Response Quality",        score: avgResponse },
+                  { label: "Process & Intelligence",  score: avgProcess  },
+                ].map(({ label, score }) => score !== null && (
+                  <div key={label} style={{ marginBottom: 14 }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 5 }}>
+                      <span style={{ fontSize: 13, color: T.textMuted }}>{label}</span>
+                      <span style={{ fontFamily: T.mono, fontSize: 12, color: score >= 60 ? T.success : score >= 40 ? T.warning : T.danger, fontWeight: 600 }}>{score}%</span>
+                    </div>
+                    <div style={{ background: "#e5e7eb", height: 6, borderRadius: 3 }}>
+                      <div style={{ background: score >= 60 ? T.success : score >= 40 ? T.warning : T.danger, height: "100%", borderRadius: 3, width: `${score}%`, transition: "width 0.8s" }}/>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Top loss patterns */}
+            {topPatterns.length > 0 && (
+              <div style={{ background: T.cardBg, border: `1px solid ${T.cardBorder}`, borderRadius: 10, padding: "20px", marginBottom: 20, boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
+                <div style={{ fontFamily: T.mono, fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase", color: T.textMuted, marginBottom: 16 }}>Most Frequent Loss Patterns</div>
+                {topPatterns.map(([label, count], i) => (
+                  <div key={label} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 0", borderBottom: i < topPatterns.length-1 ? `1px solid ${T.cardBorder}` : "none" }}>
+                    <span style={{ fontSize: 13, color: T.textSecondary, flex: 1 }}>{label}</span>
+                    <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                      <div style={{ background: "#e5e7eb", height: 6, borderRadius: 3, width: 80 }}>
+                        <div style={{ background: T.danger, height: "100%", borderRadius: 3, width: `${Math.round((count/deals.length)*100)}%` }}/>
+                      </div>
+                      <span style={{ fontFamily: T.mono, fontSize: 11, color: T.danger, fontWeight: 600, minWidth: 30 }}>{count}x</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Loss reason distribution */}
+            {Object.keys(lossReasons).length > 0 && (
+              <div style={{ background: T.cardBg, border: `1px solid ${T.cardBorder}`, borderRadius: 10, padding: "20px", marginBottom: 20, boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
+                <div style={{ fontFamily: T.mono, fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase", color: T.textMuted, marginBottom: 16 }}>Primary Loss Reason Distribution</div>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                  {Object.entries(lossReasons).sort((a,b)=>b[1]-a[1]).map(([reason, count]) => (
+                    <div key={reason} style={{ background: T.dangerLight, border: `1px solid ${T.dangerBorder}`, borderRadius: 6, padding: "6px 12px", display: "flex", gap: 8, alignItems: "center" }}>
+                      <span style={{ fontFamily: T.mono, fontSize: 11, color: "#991b1b", textTransform: "capitalize" }}>{reason}</span>
+                      <span style={{ fontFamily: T.mono, fontSize: 11, fontWeight: 700, color: T.danger }}>{count}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Deal log */}
+            <div style={{ background: T.cardBg, border: `1px solid ${T.cardBorder}`, borderRadius: 10, padding: "20px", boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
+              <div style={{ fontFamily: T.mono, fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase", color: T.textMuted, marginBottom: 14 }}>Deal Log</div>
+              {deals.map((d, i) => (
+                <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 0", borderBottom: i < deals.length-1 ? `1px solid ${T.cardBorder}` : "none" }}>
+                  <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+                    <span style={{ fontFamily: T.mono, fontSize: 10, color: T.textFaint }}>#{i+1}</span>
+                    <span style={{ fontFamily: T.mono, fontSize: 10, padding: "2px 8px", borderRadius: 4, background: d.inputs.outcome==="won"?T.successLight:T.dangerLight, color: d.inputs.outcome==="won"?T.success:T.danger, textTransform: "uppercase", letterSpacing: "0.06em" }}>{d.inputs.outcome||"—"}</span>
+                    <span style={{ fontSize: 13, color: T.textMuted }}>{d.verdict.label}</span>
+                  </div>
+                  <span style={{ fontFamily: T.mono, fontSize: 13, color: T.textPrimary, fontWeight: 600 }}>{d.results.winSignal}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : !showResults ? (
           <div style={{ display: "grid", gridTemplateColumns: "200px 1fr", gap: 24 }}>
 
             {/* Section nav */}
@@ -360,9 +554,18 @@ export default function WinLossAnalyzer() {
             <div style={{ background: T.accentLight, border: `1px solid ${T.accentBorder}`, borderLeft: `3px solid ${T.accent}`, borderRadius: 10, padding: "20px 24px", marginBottom: 20 }}>
               <div style={{ fontFamily: T.mono, fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase", color: T.accent, marginBottom: 14 }}>Playbook Recommendations</div>
               {results.playbook.map((item, i) => (
-                <div key={i} style={{ display: "flex", gap: 14, marginBottom: 14, paddingBottom: 14, borderBottom: i < results.playbook.length - 1 ? `1px solid ${T.accentBorder}` : "none" }}>
-                  <span style={{ fontFamily: T.mono, fontSize: 11, color: T.accent, flexShrink: 0, marginTop: 2 }}>0{i + 1}</span>
-                  <p style={{ margin: 0, fontSize: 13, color: T.accentText, lineHeight: 1.7 }}>{item}</p>
+                <div key={i} style={{ marginBottom: 16, paddingBottom: 16, borderBottom: i < results.playbook.length - 1 ? `1px solid ${T.accentBorder}` : "none" }}>
+                  <div style={{ display: "flex", gap: 12, alignItems: "flex-start", marginBottom: 8 }}>
+                    <span style={{ fontFamily: T.mono, fontSize: 11, color: T.accent, flexShrink: 0, marginTop: 1, minWidth: 20 }}>0{i + 1}</span>
+                    <div style={{ fontFamily: T.mono, fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase", color: T.accent, fontWeight: 600 }}>{typeof item === "object" ? item.title : "Recommendation"}</div>
+                  </div>
+                  <p style={{ margin: "0 0 10px 32px", fontSize: 13, color: T.accentText, lineHeight: 1.75 }}>{typeof item === "object" ? item.action : item}</p>
+                  {typeof item === "object" && item.next && (
+                    <div style={{ marginLeft: 32, background: T.cardBg, border: `1px solid ${T.accentBorder}`, borderLeft: `3px solid ${T.accent}`, borderRadius: 6, padding: "10px 12px" }}>
+                      <div style={{ fontFamily: T.mono, fontSize: 9, color: T.accent, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 4 }}>First action</div>
+                      <p style={{ margin: 0, fontSize: 12, color: T.accentText, lineHeight: 1.65 }}>{item.next}</p>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
