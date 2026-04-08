@@ -97,6 +97,14 @@
     {
       "source": "/writing/:path*",
       "destination": "/writing/:path*/index.html"
+    },
+    {
+      "source": "/tools/installed-base",
+      "destination": "/tools/installed-base/index.html"
+    },
+    {
+      "source": "/tools/installed-base/(.*)",
+      "destination": "/tools/installed-base/index.html"
     }
   ]
 }
