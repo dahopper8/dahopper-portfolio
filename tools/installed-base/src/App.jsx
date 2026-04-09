@@ -88,7 +88,8 @@ function Slider({ value, onChange, min, max, step, format, label, hint, color })
       {hint && <div style={{ fontFamily: T.mono, fontSize: 9, color: T.textMuted, marginBottom: 6, lineHeight: 1.4 }}>{hint}</div>}
       <input type="range" min={min} max={max} step={step} value={value}
         onChange={e => onChange(Number(e.target.value))}
-        style={{ width: "100%", cursor: "pointer", accentColor: color || T.accent }} />
+        style={{ width: "100%", cursor: "pointer", accentColor: color || T.accent,
+          "--thumb-color": color || T.accent }} />
       <div style={{ display: "flex", justifyContent: "space-between", marginTop: 2 }}>
         <span style={{ fontFamily: T.mono, fontSize: 9, color: T.textMuted }}>{format(min)}</span>
         <span style={{ fontFamily: T.mono, fontSize: 9, color: T.textMuted }}>{format(max)}</span>
@@ -232,8 +233,8 @@ export default function InstalledBaseModeler() {
         @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
         body { background: #0e1117; }
         input[type=range] { -webkit-appearance: none; appearance: none; height: 4px; border-radius: 2px; outline: none; width: 100%; background: #2a3441; cursor: pointer; display: block; }
-        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%; background: currentColor; cursor: pointer; border: 2px solid #0e1117; }
-        input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 50%; background: currentColor; cursor: pointer; border: 2px solid #0e1117; box-shadow: none; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%; background: var(--thumb-color, #f0a500); cursor: pointer; border: 2px solid #0e1117; box-shadow: 0 0 0 2px rgba(240,165,0,0.2); }
+        input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 50%; background: var(--thumb-color, #f0a500); cursor: pointer; border: 2px solid #0e1117; box-shadow: none; }
         input[type=range]::-webkit-slider-runnable-track { height: 4px; border-radius: 2px; }
         input[type=range]::-moz-range-track { height: 4px; border-radius: 2px; background: #2a3441; }
         ::-webkit-scrollbar { width: 5px; } ::-webkit-scrollbar-track { background: #161b22; } ::-webkit-scrollbar-thumb { background: #2a3441; border-radius: 3px; }
@@ -330,6 +331,45 @@ export default function InstalledBaseModeler() {
               <PriorityRow rank="04" label="Uncontracted units within active service window" count={aggUncontractedServiceable} revenue={uncontractedRevenue} urgency="monitor" />
             </div>
 
+            {/* Prescriptive next steps */}
+            <div style={{ background: T.surface, border: `1px solid ${T.border}`, borderRadius: 4, padding: "18px", marginBottom: 14 }}>
+              <div style={{ fontFamily: T.mono, fontSize: 9, letterSpacing: "0.16em", textTransform: "uppercase", color: T.textMuted, marginBottom: 16 }}>Recommended Next Steps — Portfolio Level</div>
+              {[
+                {
+                  num: "01",
+                  title: "Audit CRM / ERP for service history gaps",
+                  detail: `Start with the ${fn(agg.overdue)} overdue units. Cross-reference serial numbers against service records. Any unit without an OEM service record in the last ${lines[0]?.serviceCycle || 5} years is a first-call target — before a competitor locks them into a third-party contract.`,
+                  color: T.danger,
+                },
+                {
+                  num: "02",
+                  title: "Segment third-party MRO accounts by displacement readiness",
+                  detail: `Estimated ${fn(lines.reduce((a, l) => a + Math.round(l.installedBase * l.thirdPartyShare / 100), 0))} units are being serviced by independents. Not all are recoverable — prioritize accounts where the third-party relationship is transactional (price-driven) over those where it's relational. Equipment age and contract expiry are the key signals.`,
+                  color: T.accent,
+                },
+                {
+                  num: "03",
+                  title: "Design a contract offer for the highest-TAM product line",
+                  detail: `${lines.reduce((best, l, i) => results[i].totalTAM > results[best].totalTAM ? i : best, 0) >= 0 ? lines[lines.reduce((best, l, i) => results[i].totalTAM > results[best].totalTAM ? i : best, 0)]?.name : "Your top line"} represents the largest aftermarket opportunity. Build a tiered service contract — basic coverage, full coverage, performance guarantee — before expanding to other lines. One well-designed offer beats three half-built ones.`,
+                  color: T.success,
+                },
+                {
+                  num: "04",
+                  title: "Establish attach rate tracking by product line and region",
+                  detail: `Right now attach rate is an estimate. The intervention model becomes significantly more accurate — and credible to leadership — when it's grounded in actual service event data segmented by product line. Set this up before the next planning cycle, not after.`,
+                  color: T.textSecondary,
+                },
+              ].map((step, i) => (
+                <div key={i} style={{ display: "flex", gap: 14, padding: "14px 0", borderBottom: i < 3 ? `1px solid ${T.border}` : "none" }}>
+                  <div style={{ fontFamily: T.display, fontSize: 22, fontWeight: 800, color: step.color, minWidth: 28, opacity: 0.7 }}>{step.num}</div>
+                  <div>
+                    <div style={{ fontFamily: T.sans, fontSize: 13, fontWeight: 600, color: T.textPrimary, marginBottom: 5 }}>{step.title}</div>
+                    <div style={{ fontFamily: T.mono, fontSize: 10, color: T.textSecondary, lineHeight: 1.65 }}>{step.detail}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
             <div style={{ background: T.surfaceHigh, border: `1px solid ${T.border}`, borderRadius: 4, padding: "12px 14px" }}>
               <div style={{ fontFamily: T.mono, fontSize: 9, letterSpacing: "0.14em", textTransform: "uppercase", color: T.textMuted, marginBottom: 6 }}>Model Assumptions</div>
               <div style={{ fontFamily: T.mono, fontSize: 9, color: T.textMuted, lineHeight: 1.7 }}>
@@ -377,6 +417,42 @@ export default function InstalledBaseModeler() {
                     <div style={{ fontFamily: T.mono, fontSize: 9, color: T.textSecondary }}>Coverage: <span style={{ color: r.coverageRatio < 30 ? T.danger : r.coverageRatio < 60 ? T.accent : T.success }}>{fp(r.coverageRatio)}</span></div>
                     <div style={{ fontFamily: T.mono, fontSize: 9, color: T.textSecondary }}>Contracts to close gap: <span style={{ color: T.accent }}>{r.contractsNeeded}</span></div>
                     {r.overdue > 0 && <div style={{ fontFamily: T.mono, fontSize: 9, color: T.danger }}>⚠ {fn(r.overdue)} units overdue — {fc(r.overdueRevenue)} at risk</div>}
+                  </div>
+                  {/* Line-level next steps */}
+                  <div style={{ marginTop: 14, paddingTop: 14, borderTop: `1px solid ${T.border}` }}>
+                    <div style={{ fontFamily: T.mono, fontSize: 9, letterSpacing: "0.12em", textTransform: "uppercase", color: T.textMuted, marginBottom: 10 }}>Priority Actions — {line.name}</div>
+                    <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                      {r.overdue > 0 && (
+                        <div style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
+                          <span style={{ fontFamily: T.mono, fontSize: 9, color: T.danger, flexShrink: 0, marginTop: 1 }}>⚠ CRITICAL</span>
+                          <span style={{ fontFamily: T.mono, fontSize: 10, color: T.textSecondary, lineHeight: 1.55 }}>
+                            {fn(r.overdue)} units are overdue for service. Field outreach should begin immediately — these accounts are the most likely to consolidate with a third-party MRO provider if OEM contact lapses further.
+                          </span>
+                        </div>
+                      )}
+                      {r.leakageRate > 40 && (
+                        <div style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
+                          <span style={{ fontFamily: T.mono, fontSize: 9, color: T.accent, flexShrink: 0, marginTop: 1 }}>◆ HIGH</span>
+                          <span style={{ fontFamily: T.mono, fontSize: 10, color: T.textSecondary, lineHeight: 1.55 }}>
+                            Leakage rate of {fp(r.leakageRate)} on {line.name} is above threshold. Investigate whether pricing, parts availability, or lead time is driving displacement — fix the root cause before launching a contract program or you'll be selling against your own service failures.
+                          </span>
+                        </div>
+                      )}
+                      {r.coverageRatio < 30 && (
+                        <div style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
+                          <span style={{ fontFamily: T.mono, fontSize: 9, color: T.accent, flexShrink: 0, marginTop: 1 }}>◆ HIGH</span>
+                          <span style={{ fontFamily: T.mono, fontSize: 10, color: T.textSecondary, lineHeight: 1.55 }}>
+                            Contract penetration is low at {fp(r.coverageRatio)} coverage. Focus the next {r.contractsNeeded} contract closes on accounts within the active service window — they have an immediate need and are the most convertible.
+                          </span>
+                        </div>
+                      )}
+                      <div style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
+                        <span style={{ fontFamily: T.mono, fontSize: 9, color: T.success, flexShrink: 0, marginTop: 1 }}>● TRACK</span>
+                        <span style={{ fontFamily: T.mono, fontSize: 10, color: T.textSecondary, lineHeight: 1.55 }}>
+                          Set a quarterly attach rate target for {line.name}. Current OEM capture is {fp(line.attachRate)}. A {Math.min(10, Math.round((100 - line.attachRate - line.thirdPartyShare) * 0.5))}pp improvement would add approximately {fc(Math.round(r.totalTAM * Math.min(10, Math.round((100 - line.attachRate - line.thirdPartyShare) * 0.5)) / 100))} in annual service revenue.
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               );
