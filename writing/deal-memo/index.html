@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Deal Memo: Commercial Transformation · David Hopper</title>
+  <meta name="description" content="A commercial transformation writeup structured the way a PE firm reads it. Including what didn't work." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Crimson+Pro:ital,wght@0,400;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #faf8f4; --border: #e0dbd4; --card: #ffffff;
+      --text: #1a1917; --muted: #6b6560; --faint: #9a9690;
+      --accent: #1a6b3c;
+      --serif: 'Playfair Display', Georgia, serif;
+      --body: 'Crimson Pro', Georgia, serif;
+      --mono: 'DM Mono', monospace;
+    }
+    body { background: var(--bg); color: var(--text); font-family: var(--body); font-size: 19px; line-height: 1.75; }
+    nav { border-bottom: 1px solid var(--border); padding: 16px 48px; display: flex; justify-content: space-between; align-items: center; }
+    .nav-home { font-family: var(--mono); font-size: 10px; color: var(--accent); text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase; }
+    .nav-back { font-family: var(--mono); font-size: 10px; color: var(--faint); text-decoration: none; letter-spacing: 0.06em; }
+    .nav-back:hover { color: var(--muted); }
+
+    .hero { max-width: 720px; margin: 0 auto; padding: 56px 48px 40px; }
+    .hero-eyebrow { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 18px; }
+    .hero-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+    .tag { font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); background: white; border: 1px solid var(--border); border-radius: 3px; padding: 3px 8px; }
+    h1 { font-family: var(--serif); font-size: clamp(24px, 3.5vw, 34px); font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; color: var(--text); margin-bottom: 24px; }
+    .tldr { background: white; border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 6px; padding: 16px 20px; margin-bottom: 12px; }
+    .tldr-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+    .tldr p { font-size: 16px; color: var(--muted); line-height: 1.65; margin: 0; }
+    .company-line { font-family: var(--mono); font-size: 11px; color: var(--faint); margin-top: 10px; }
+
+    /* Tabs */
+    .tabs-wrap { max-width: 720px; margin: 0 auto; padding: 0 48px; }
+    .tabs { display: flex; border-bottom: 1px solid var(--border); overflow-x: auto; gap: 0; }
+    .tab-btn { background: none; border: none; padding: 12px 16px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); border-bottom: 2px solid transparent; cursor: pointer; white-space: nowrap; transition: all 0.15s; }
+    .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+    .tab-btn:hover:not(.active) { color: var(--muted); }
+
+    /* Content */
+    .content { max-width: 720px; margin: 0 auto; padding: 40px 48px 80px; }
+    h2 { font-family: var(--serif); font-size: 26px; font-weight: 700; color: var(--text); margin-bottom: 28px; letter-spacing: -0.01em; }
+    p { margin-bottom: 1.4em; }
+
+    /* Prev/next */
+    .section-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); }
+    .section-nav button { font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; padding: 9px 16px; border-radius: 4px; cursor: pointer; transition: all 0.15s; }
+    .btn-prev { background: none; border: 1px solid var(--border); color: var(--muted); }
+    .btn-prev:disabled { opacity: 0.3; cursor: default; }
+    .btn-next { background: var(--text); border: 1px solid var(--text); color: white; }
+    .btn-next:disabled { opacity: 0.3; cursor: default; }
+    .section-counter { font-family: var(--mono); font-size: 10px; color: var(--faint); }
+
+    footer { max-width: 720px; margin: 0 auto; padding: 0 48px 60px; display: flex; justify-content: space-between; align-items: center; }
+    .footer-byline { font-family: var(--mono); font-size: 10px; color: var(--faint); }
+    .footer-link { font-family: var(--mono); font-size: 10px; color: var(--accent); text-decoration: none; letter-spacing: 0.06em; }
+
+    @media (max-width: 600px) { nav, .hero, .tabs-wrap, .content, footer { padding-left: 24px; padding-right: 24px; } h1 { font-size: 24px; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="https://dahopper.com" class="nav-home">David Hopper</a>
+  <a href="https://dahopper.com#thinking" class="nav-back">← All writing</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-eyebrow">Case Study · Commercial Transformation</div>
+  <div class="hero-tags">
+    <span class="tag">PE-Backed Manufacturing · B2B/B2G</span>
+    <span class="tag">Composite · Disguised</span>
+  </div>
+  <h1>From Activity-Driven to Outcome-Driven: Building a Commercial Engine in a PE-Backed Manufacturer</h1>
+  <div class="tldr">
+    <div class="tldr-label">TL;DR</div>
+    <p>A portfolio company with strong product and brand equity had built its revenue on relationships and inbound momentum. When organic growth stalled, the PE sponsor identified commercial infrastructure — not product or talent — as the primary constraint. This is the story of what we built, what broke, and what I'd do differently.</p>
+  </div>
+  <div class="company-line">Disguised composite · PE-backed manufacturing portfolio company · $400–600M revenue</div>
+</div>
+
+<div class="tabs-wrap">
+  <div class="tabs" id="tabs"></div>
+</div>
+
+<div class="content" id="content"></div>
+
+<footer>
+  <span class="footer-byline">David Hopper · Commercial Operations</span>
+  <a href="https://dahopper.com" class="footer-link">dahopper.com →</a>
+</footer>
+
+<script>
+const sections = [
+  {
+    label: "Situation",
+    heading: "Situation",
+    paras: [
+      "The company had grown to $400M+ in revenue over two decades on the strength of a dominant market position, a well-regarded product portfolio, and a sales team with deep customer relationships. Win rates on contested opportunities were strong. The problem was that the contested opportunity set was shrinking.",
+      "The business had no systematic way to identify prospects before they issued an RFP. Marketing measured impressions and trade show attendance. Sales tracked open opportunities but had no visibility into pre-funnel accounts. The CRM held 18 months of data but had never been used to answer a strategic question. Pipeline reviews were status updates, not analytical conversations.",
+      "Revenue growth had averaged 4% annually over the prior three years — below the PE sponsor's 8–10% target. The sponsor's operating partner framed the problem clearly in the first board conversation I observed: 'We have a great business that doesn't know how to grow on purpose.'"
+    ]
+  },
+  {
+    label: "Diagnosis",
+    heading: "Diagnosis",
+    paras: [
+      "I spent the first 30 days doing three things: riding along on sales calls, pulling every closed-won deal from the prior 24 months, and interviewing the 12 highest-performing reps about how they actually found and closed business.",
+      "The closed-won analysis was clarifying. 68% of revenue in the prior two years had come from existing accounts or inbound inquiries. Of the remaining 32% — true new business — 80% had come from six reps. Those six reps had an informal but consistent practice: they tracked budget cycles, monitored capital improvement plan filings, and maintained relationships before any active procurement. They were working a priming window. The other 24 reps were waiting for RFPs.",
+      "The CRM diagnosis was equally stark. 340 open opportunities, 60% with no activity in 90 days. Stage progression was optimistic and manual. There was no ICP definition, no lead scoring, no SLA between marketing and sales. Marketing was generating leads that sales was ignoring, and neither function had a shared metric that would surface the problem.",
+      "Pricing was the third gap. List prices existed but weren't enforced. Discounting authority was informal. Two reps consistently closed 10–12% below list; analysis showed those deals were marginally profitable at best."
+    ]
+  },
+  {
+    label: "Intervention",
+    heading: "Intervention",
+    paras: [
+      "We structured the intervention in three sequential phases, each with a defined outcome that gated the next phase.",
+      "Phase 1 (months 1–3): Pipeline integrity. We implemented stage-gate criteria requiring documented buyer actions for progression. We ran a pipeline audit that reduced the stated pipeline by 31% — a painful conversation with leadership that became a credibility-builder when the revised forecast proved accurate. We defined an ICP jointly with sales leadership: three firmographic tiers with explicit disqualification criteria.",
+      "Phase 2 (months 4–8): Signal-based prospecting. We built a trigger monitoring system for the largest vertical that tracked budget cycles, capital improvement plan filings, and leadership changes. We identified 340 target accounts in the priming window across 12 states and built a sequenced outreach motion for each tier. We established a marketing-to-sales SLA with a shared pipeline contribution metric that aligned both functions for the first time.",
+      "Phase 3 (months 9–14): Pricing discipline. We conducted a discount audit across 24 months of closed-won data. We built a pricing authorization matrix with tiered approval requirements and a required rationale field. We piloted a 4% list price increase in two regions with full rep training and objection-handling support before national rollout.",
+      "Throughout all three phases, we ran a weekly commercial operating rhythm: a 45-minute deal review with a standard template, a monthly pipeline quality review with marketing, and a quarterly commercial diagnostic for the board."
+    ]
+  },
+  {
+    label: "Results",
+    heading: "Results",
+    paras: [
+      "By month 18, new business pipeline from the signal-based prospecting motion had reached $28M — representing accounts that had not previously been in any sales process. Conversion from priming window identification to active opportunity averaged 14 months, consistent with our model.",
+      "Forecast accuracy improved from a trailing average of ±28% variance to ±11% by Q3 of the intervention. The pipeline audit and stage-gate implementation drove the initial improvement; the shared pipeline SLA sustained it.",
+      "The pricing initiative delivered 180bps of margin improvement in the first full year of implementation, against a PE target of 150bps. Rep resistance was significant in the first quarter; by Q2, the reps who had been most resistant had internalized the authorization process and reported that it actually helped them defend price with buyers.",
+      "Revenue growth accelerated from 4% to 9% in the 18 months following full implementation — driven roughly equally by new business and expansion within existing accounts."
+    ]
+  },
+  {
+    label: "What Broke",
+    heading: "What Broke",
+    paras: [
+      "The signal-based prospecting system was more brittle than anticipated. It depended on data sources that were inconsistently formatted and frequently out of date. We spent more time on data hygiene than on outreach in the first two months. If I were rebuilding this today, I would start with a commercial data vendor rather than attempting to build a proprietary scraping solution.",
+      "The pricing authorization matrix created a bottleneck. VP approval was required for discounts above 8%, and in the first quarter, approval requests were taking 3–5 days. Two deals slipped because of it. We resolved this by moving to a same-day SLA for standard requests and building a pre-approved discount framework for common deal structures — but we should have anticipated the throughput problem at design.",
+      "We underinvested in change management for the CRM stage-gate implementation. Reps perceived it as surveillance rather than as a tool that would make their forecasts more defensible. A more structured adoption campaign with early-adopter recognition would have compressed the resistance period."
+    ]
+  },
+  {
+    label: "What I'd Do Differently",
+    heading: "What I'd Do Differently",
+    paras: [
+      "Move faster on the closed-won analysis. I ran it in week three, but I should have run it on day two. The six-rep insight reframed the entire strategy. If I'd had that at day two instead of week three, the intervention design would have been better from the start. The data to make a good decision was sitting in the CRM. The delay was a prioritization error.",
+      "Build the board narrative earlier. We presented a commercial diagnostic at month four. In retrospect, I should have done a preliminary diagnostic at six weeks — not to have answers, but to establish the analytical frame and signal to the sponsor that this would be a data-driven transformation. PE sponsors are more patient with interventions they helped frame than with ones that arrive fully formed.",
+      "Separate the pricing initiative from the pipeline work. We ran them concurrently starting in month four, which created change fatigue in the sales organization. Both initiatives required rep behavior change. Running them sequentially — pipeline integrity first, pricing second — would have been slower on paper but faster in practice."
+    ]
+  }
+];
+
+let active = 0;
+
+function render() {
+  // Tabs
+  document.getElementById('tabs').innerHTML = sections.map((s, i) =>
+    `<button class="tab-btn ${i === active ? 'active' : ''}" onclick="goto(${i})">${s.label}</button>`
+  ).join('');
+
+  // Content
+  const s = sections[active];
+  document.getElementById('content').innerHTML = `
+    <h2>${s.heading}</h2>
+    ${s.paras.map(p => `<p>${p}</p>`).join('')}
+    <div class="section-nav">
+      <button class="btn-prev" onclick="goto(${active - 1})" ${active === 0 ? 'disabled' : ''}>← Previous</button>
+      <span class="section-counter">${active + 1} / ${sections.length}</span>
+      <button class="btn-next" onclick="goto(${active + 1})" ${active === sections.length - 1 ? 'disabled' : ''}>Next →</button>
+    </div>
+  `;
+}
+
+function goto(i) {
+  if (i < 0 || i >= sections.length) return;
+  active = i;
+  render();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+render();
+</script>
+</body>
+</html>

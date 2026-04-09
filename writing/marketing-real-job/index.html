@@ -4,168 +4,124 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Marketing's Real Job · David Hopper</title>
-  <meta name="description" content="David Hopper on commercial operations and go-to-market strategy." />
+  <meta name="description" content="Marketing's Real Job" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Crimson+Pro:ital,wght@0,400;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      background: #faf8f4;
-      color: #1a1a18;
-      font-family: 'Crimson Pro', Georgia, serif;
-      font-size: 19px;
-      line-height: 1.8;
+    :root {
+      --bg: #faf8f4; --card: #ffffff; --border: #e0dbd4;
+      --text: #1a1917; --muted: #6b6560; --faint: #9a9690;
+      --accent: #1a6b3c;
+      --serif: 'Playfair Display', Georgia, serif;
+      --body: 'Crimson Pro', Georgia, serif;
+      --mono: 'DM Mono', monospace;
     }
+    body { background: var(--bg); color: var(--text); font-family: var(--body); font-size: 19px; line-height: 1.75; }
+
     nav {
-      background: #0f172a;
-      padding: 18px 48px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #1e293b;
-      position: sticky;
-      top: 0;
-      z-index: 100;
+      border-bottom: 1px solid var(--border);
+      padding: 16px 48px;
+      display: flex; justify-content: space-between; align-items: center;
     }
-    .nav-home {
-      font-family: 'DM Mono', monospace;
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #1a6b3c;
-      text-decoration: none;
-    }
-    .nav-home:hover { color: #2ec27e; }
-    .nav-meta {
-      font-family: 'DM Mono', monospace;
-      font-size: 10px;
-      color: #334155;
-      letter-spacing: 0.06em;
-    }
-    .essay-header {
-      max-width: 680px;
+    .nav-home { font-family: var(--mono); font-size: 10px; color: var(--accent); text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase; }
+    .nav-back { font-family: var(--mono); font-size: 10px; color: var(--faint); text-decoration: none; letter-spacing: 0.06em; }
+    .nav-back:hover { color: var(--muted); }
+
+    .essay {
+      max-width: 640px;
       margin: 0 auto;
-      padding: 56px 48px 40px;
-      border-bottom: 1px solid #e0dbd4;
+      padding: 64px 48px 80px;
     }
-    .essay-category {
-      font-family: 'DM Mono', monospace;
+
+    .essay-eyebrow {
+      font-family: var(--mono);
       font-size: 10px;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: #1a6b3c;
-      margin-bottom: 16px;
+      color: var(--accent);
+      margin-bottom: 18px;
     }
-    .essay-title {
-      font-size: 42px;
-      font-weight: 600;
-      line-height: 1.12;
-      color: #0a0a08;
-      margin-bottom: 20px;
+
+    h1 {
+      font-family: var(--serif);
+      font-size: clamp(28px, 4vw, 38px);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 40px;
+    }
+
+    p {
+      margin-bottom: 1.5em;
+      color: var(--text);
+    }
+
+    h2 {
+      font-family: var(--serif);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text);
+      margin: 2.5em 0 0.75em;
       letter-spacing: -0.01em;
     }
-    .essay-meta {
-      font-family: 'DM Mono', monospace;
-      font-size: 11px;
-      color: #9a9690;
-      letter-spacing: 0.06em;
+
+    .essay-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 48px 0 32px;
     }
-    .essay-body {
-      max-width: 680px;
+
+    footer {
+      max-width: 640px;
       margin: 0 auto;
-      padding: 48px 48px 100px;
-    }
-    .essay-body p {
-      margin-bottom: 28px;
-      color: #2a2520;
-    }
-    .essay-body h2 {
-      font-size: 24px;
-      font-weight: 600;
-      color: #0a0a08;
-      margin: 48px 0 20px;
-      letter-spacing: -0.01em;
-      line-height: 1.3;
-    }
-    .essay-body h2::before {
-      content: '';
-      display: block;
-      width: 28px;
-      height: 2px;
-      background: #1a6b3c;
-      margin-bottom: 16px;
-    }
-    .essay-footer {
-      max-width: 680px;
-      margin: 0 auto;
-      padding: 28px 48px 48px;
-      border-top: 1px solid #e0dbd4;
+      padding: 0 48px 60px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
-    .essay-footer-author {
-      font-family: 'DM Mono', monospace;
-      font-size: 11px;
-      color: #9a9690;
-    }
-    .essay-footer-link {
-      font-family: 'DM Mono', monospace;
-      font-size: 11px;
-      color: #1a6b3c;
-      text-decoration: none;
-      letter-spacing: 0.06em;
-    }
-    .essay-footer-link:hover { color: #2ec27e; }
-    @media (max-width: 700px) {
-      nav { padding: 16px 24px; }
-      .essay-header { padding: 36px 24px 28px; }
-      .essay-title { font-size: 30px; }
-      .essay-body { padding: 32px 24px 80px; }
-      .essay-footer { padding: 20px 24px 40px; flex-direction: column; gap: 12px; align-items: flex-start; }
+    .footer-byline { font-family: var(--mono); font-size: 10px; color: var(--faint); }
+    .footer-link { font-family: var(--mono); font-size: 10px; color: var(--accent); text-decoration: none; letter-spacing: 0.06em; }
+
+    @media (max-width: 600px) {
+      nav, .essay, footer { padding-left: 24px; padding-right: 24px; }
+      h1 { font-size: 28px; }
     }
   </style>
 </head>
 <body>
-  <nav>
-    <a href="https://dahopper.com" class="nav-home">← David Hopper</a>
-    <div class="nav-meta">Commercial Operations &amp; Strategy</div>
-  </nav>
-  <div class="essay-header">
-    <div class="essay-category">Essay · Commercial Strategy</div>
-    <h1 class="essay-title">Marketing's Real Job</h1>
-    <div class="essay-meta">8 min read · David Hopper</div>
-  </div>
-  <div class="essay-body">
-    <p>Ask ten people in a company what marketing does, and you will get answers that cluster around a few themes: content, brand, events, campaigns, social media. Ask them what marketing should be accountable for, and the answers get less specific. Pipeline, maybe. Brand awareness. Supporting sales.</p>
-    <p>This vagueness is not accidental. It reflects something real about how marketing functions are designed and evaluated in most organizations, and it has consequences that show up in how resources get allocated, how performance gets measured, and how much strategic influence the function actually has.</p>
-    <h2>The Perception Problem Has Structural Roots</h2>
-    <p>Marketing is frequently perceived as a creative and communications function because, in many organizations, that is what it is. The team produces content, manages the website, runs campaigns, and handles events. These are legitimate activities. They are also activities that can be evaluated on output rather than outcome, which makes them comfortable to manage and comfortable to fund.</p>
-    <p>The problem is not that marketing does these things. It is that organizations often stop there, treating content and creative as the end state rather than instruments in service of a commercial outcome. When that happens, the function gets evaluated on activity — how much content was produced, how many leads were generated, how many events were executed — rather than on the business results that the activity was supposed to drive.</p>
-    <p>This creates a self-reinforcing dynamic. Functions that are evaluated on activity optimize for activity. Functions that optimize for activity become easier to dismiss as overhead when budgets are tight. Functions that are regularly dismissed as overhead tend to attract people who are comfortable operating without significant accountability to commercial results. And so the perception hardens: marketing is the team that does content and creative, and everyone has opinions about the work because the work is visible and the commercial connection is not.</p>
-    <h2>What Marketing Actually Has to Offer</h2>
-    <p>The functions that marketing can and should own — beyond content and creative — are among the most commercially significant in the organization.</p>
-    <p>Pricing strategy sits at the intersection of market intelligence, customer psychology, and revenue architecture. Most pricing decisions are made by finance or by senior sales leadership with input from whoever has the most relevant relationships. Marketing's contribution, where it exists at all, is usually limited to how the price is communicated rather than what the price should be. This is backwards. A function that understands buyer psychology, competitive positioning, and the way customers evaluate value relative to alternatives is exactly the function that should be driving pricing conversations, not just packaging the outcomes.</p>
-    <p>Sales enablement, at its best, is a translation function: taking what marketing knows about the buyer and the market and converting it into tools, narratives, and workflows that make salespeople more effective. Most sales enablement programs are built and run by people who have strong opinions about sales process but limited understanding of why buyers make the decisions they do. Marketing, if it is doing its job, understands the buyer better than almost anyone else in the organization. The enablement work that flows from that understanding is substantively different from the enablement work that flows from an internal view of how the sales process should work.</p>
-    <p>Product development is the third area where marketing's contribution is systematically underutilized. The feedback loops between customer behavior, market signal, and product direction work better when marketing is actively involved in translating what it is seeing in the market into inputs that product teams can act on. This is not about marketing owning the product roadmap. It is about having a function with genuine market insight involved in the conversations where that insight matters most.</p>
-    <h2>The Opinion Problem</h2>
-    <p>One of the more frustrating dynamics in marketing is the volume of unsolicited opinion the function attracts. Everyone has views on the creative work because everyone is a consumer of creative work and believes their taste is representative. Everyone has views on the messaging because everyone has their own understanding of what the company does and why it matters. This would be manageable if the opinions were confined to the creative and communications work, but they tend to expand to fill the available space.</p>
-    <p>The result is a function that spends significant energy managing internal opinion rather than doing work. Campaign creative goes through rounds of feedback from people whose opinions are not particularly relevant to whether the creative will resonate with the target buyer. Messaging frameworks get debated by people who have strong feelings about how the company should be described but limited knowledge of how actual buyers talk about the problem the company solves.</p>
-    <p>A messaging framework I worked on went through eleven rounds of internal review before it reached buyers. The eleventh round involved the CEO rewriting the headline because it didn't feel right to him. The buyer research said the original headline outperformed every alternative we tested. The CEO's instinct and the data pointed in different directions. The data lost. This is not unusual. It is the default outcome when marketing decisions are made by internal preference rather than buyer evidence.</p>
-    <p>The structural fix is straightforward in principle: tie marketing decisions to buyer evidence rather than internal preference. When the question is whether a message will work, the relevant input is data about how buyers respond to it, not the CEO's intuition about whether it sounds right. When the question is which campaign to invest in, the relevant input is the historical relationship between that type of campaign and downstream pipeline and revenue, not the collective feeling in the room about which campaign looks most impressive.</p>
-    <p>This requires marketing to build the measurement infrastructure that makes buyer evidence legible to the organization, and it requires organizational leadership to commit to using that evidence rather than defaulting to HiPPO decision-making when the evidence produces an uncomfortable answer.</p>
-    <h2>The Accountability Question</h2>
-    <p>The single thing that does the most to change how marketing is perceived and utilized in an organization is changing what it is held accountable for.</p>
-    <p>A marketing function that is accountable for leads will optimize for lead volume. A marketing function that is accountable for pipeline will optimize for pipeline quality. A marketing function that is accountable for a defined contribution to revenue will structure itself, its team, and its priorities around the activities that produce that contribution. The accountability shapes the function more than any organizational design choice or talent decision.</p>
-    <p>I've seen the same marketing function operate under two different accountability structures twelve months apart. In year one, they were accountable for MQLs. They produced a lot of them. Sales ignored most of them. In year two, they were accountable for pipeline created from marketing-sourced activity. The team restructured their priorities, their content calendar, and their campaign mix within a quarter. Not because the people changed — they didn't — but because the metric changed what they were optimizing for.</p>
-    <p>This is not an argument for holding marketing accountable for revenue in a way that ignores everything that happens after a lead becomes an opportunity. The conversion between marketing activity and closed revenue involves sales execution, competitive dynamics, and factors outside marketing's control. But there is a meaningful difference between acknowledging that complexity and using it as a reason to leave marketing's accountability entirely upstream of any commercial outcome.</p>
-    <p>The organizations that get the most out of their marketing functions are almost always the ones that have made the commercial accountability explicit, connected it to the measurement infrastructure needed to evaluate it, and given the function the organizational standing to participate in the conversations where that accountability gets defined.</p>
-    <p>The function is capable of more than content and creative. Whether it operates at that level is largely a question of what the organization has decided to ask of it.</p>
-  </div>
-  <div class="essay-footer">
-    <div class="essay-footer-author">David Hopper · Commercial Operations &amp; Strategy</div>
-    <a href="https://dahopper.com" class="essay-footer-link">dahopper.com →</a>
-  </div>
+
+<nav>
+  <a href="https://dahopper.com" class="nav-home">David Hopper</a>
+  <a href="https://dahopper.com#thinking" class="nav-back">← All writing</a>
+</nav>
+
+<article class="essay">
+  <div class="essay-eyebrow">Field Notes · Commercial Operations</div>
+  <h1>Marketing's Real Job</h1>
+
+    <p>Ask what marketing does and you'll get answers that cluster around content, brand, campaigns, social. Ask what marketing should be accountable for and the answers get vague. Pipeline, maybe. Supporting sales.</p>
+
+    <p>This vagueness isn't accidental. It reflects something true about how the function is designed in most organizations — and it has consequences.</p>
+
+    <p>A marketing function accountable for MQLs will optimize for MQL volume. A marketing function accountable for pipeline will optimize for pipeline quality. A marketing function accountable for a defined contribution to revenue will structure itself, its team, and its priorities around the activities that produce that contribution.</p>
+
+    <p>I've seen the same marketing team operate under two different accountability structures twelve months apart. In year one, they owned MQLs. They produced a lot of them. Sales ignored most of them. In year two, they owned pipeline sourced from marketing activity. The team restructured their priorities, their content calendar, and their campaign mix within a quarter. Not because the people changed — they didn't — but because the metric changed what they were optimizing for.</p>
+
+    <p>The function is capable of more than content and creative. Pricing strategy, sales enablement, product direction — these are areas where a marketing team with genuine market understanding can contribute materially. Whether it operates at that level is almost entirely a function of what the organization has decided to ask of it.</p>
+
+    <p>Most organizations haven't decided. They've inherited a marketing function designed around activity that's easy to see and hard to hold accountable, and kept it there because changing the accountability structure is uncomfortable.</p>
+
+    <p>The conversation that fixes it is usually about metrics, not org design. What is marketing accountable for, specifically, and how will we know? That question surfaces disagreements worth having. The absence of it is more expensive than the conversation.</p>
+
+  <hr class="essay-divider" />
+</article>
+
+<footer>
+  <span class="footer-byline">David Hopper · Commercial Operations</span>
+  <a href="https://dahopper.com" class="footer-link">dahopper.com →</a>
+</footer>
+
 </body>
 </html>

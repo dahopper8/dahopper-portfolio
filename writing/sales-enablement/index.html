@@ -3,170 +3,127 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Designing Enablement for the Rep in Front of You · David Hopper</title>
-  <meta name="description" content="David Hopper on commercial operations and go-to-market strategy." />
+  <title>Ramp Time Is a Systems Problem · David Hopper</title>
+  <meta name="description" content="Ramp Time Is a Systems Problem" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Crimson+Pro:ital,wght@0,400;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      background: #faf8f4;
-      color: #1a1a18;
-      font-family: 'Crimson Pro', Georgia, serif;
-      font-size: 19px;
-      line-height: 1.8;
+    :root {
+      --bg: #faf8f4; --card: #ffffff; --border: #e0dbd4;
+      --text: #1a1917; --muted: #6b6560; --faint: #9a9690;
+      --accent: #1a6b3c;
+      --serif: 'Playfair Display', Georgia, serif;
+      --body: 'Crimson Pro', Georgia, serif;
+      --mono: 'DM Mono', monospace;
     }
+    body { background: var(--bg); color: var(--text); font-family: var(--body); font-size: 19px; line-height: 1.75; }
+
     nav {
-      background: #0f172a;
-      padding: 18px 48px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #1e293b;
-      position: sticky;
-      top: 0;
-      z-index: 100;
+      border-bottom: 1px solid var(--border);
+      padding: 16px 48px;
+      display: flex; justify-content: space-between; align-items: center;
     }
-    .nav-home {
-      font-family: 'DM Mono', monospace;
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #1a6b3c;
-      text-decoration: none;
-    }
-    .nav-home:hover { color: #2ec27e; }
-    .nav-meta {
-      font-family: 'DM Mono', monospace;
-      font-size: 10px;
-      color: #334155;
-      letter-spacing: 0.06em;
-    }
-    .essay-header {
-      max-width: 680px;
+    .nav-home { font-family: var(--mono); font-size: 10px; color: var(--accent); text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase; }
+    .nav-back { font-family: var(--mono); font-size: 10px; color: var(--faint); text-decoration: none; letter-spacing: 0.06em; }
+    .nav-back:hover { color: var(--muted); }
+
+    .essay {
+      max-width: 640px;
       margin: 0 auto;
-      padding: 56px 48px 40px;
-      border-bottom: 1px solid #e0dbd4;
+      padding: 64px 48px 80px;
     }
-    .essay-category {
-      font-family: 'DM Mono', monospace;
+
+    .essay-eyebrow {
+      font-family: var(--mono);
       font-size: 10px;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: #1a6b3c;
-      margin-bottom: 16px;
+      color: var(--accent);
+      margin-bottom: 18px;
     }
-    .essay-title {
-      font-size: 42px;
-      font-weight: 600;
-      line-height: 1.12;
-      color: #0a0a08;
-      margin-bottom: 20px;
+
+    h1 {
+      font-family: var(--serif);
+      font-size: clamp(28px, 4vw, 38px);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 40px;
+    }
+
+    p {
+      margin-bottom: 1.5em;
+      color: var(--text);
+    }
+
+    h2 {
+      font-family: var(--serif);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text);
+      margin: 2.5em 0 0.75em;
       letter-spacing: -0.01em;
     }
-    .essay-meta {
-      font-family: 'DM Mono', monospace;
-      font-size: 11px;
-      color: #9a9690;
-      letter-spacing: 0.06em;
+
+    .essay-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 48px 0 32px;
     }
-    .essay-body {
-      max-width: 680px;
+
+    footer {
+      max-width: 640px;
       margin: 0 auto;
-      padding: 48px 48px 100px;
-    }
-    .essay-body p {
-      margin-bottom: 28px;
-      color: #2a2520;
-    }
-    .essay-body h2 {
-      font-size: 24px;
-      font-weight: 600;
-      color: #0a0a08;
-      margin: 48px 0 20px;
-      letter-spacing: -0.01em;
-      line-height: 1.3;
-    }
-    .essay-body h2::before {
-      content: '';
-      display: block;
-      width: 28px;
-      height: 2px;
-      background: #1a6b3c;
-      margin-bottom: 16px;
-    }
-    .essay-footer {
-      max-width: 680px;
-      margin: 0 auto;
-      padding: 28px 48px 48px;
-      border-top: 1px solid #e0dbd4;
+      padding: 0 48px 60px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
-    .essay-footer-author {
-      font-family: 'DM Mono', monospace;
-      font-size: 11px;
-      color: #9a9690;
-    }
-    .essay-footer-link {
-      font-family: 'DM Mono', monospace;
-      font-size: 11px;
-      color: #1a6b3c;
-      text-decoration: none;
-      letter-spacing: 0.06em;
-    }
-    .essay-footer-link:hover { color: #2ec27e; }
-    @media (max-width: 700px) {
-      nav { padding: 16px 24px; }
-      .essay-header { padding: 36px 24px 28px; }
-      .essay-title { font-size: 30px; }
-      .essay-body { padding: 32px 24px 80px; }
-      .essay-footer { padding: 20px 24px 40px; flex-direction: column; gap: 12px; align-items: flex-start; }
+    .footer-byline { font-family: var(--mono); font-size: 10px; color: var(--faint); }
+    .footer-link { font-family: var(--mono); font-size: 10px; color: var(--accent); text-decoration: none; letter-spacing: 0.06em; }
+
+    @media (max-width: 600px) {
+      nav, .essay, footer { padding-left: 24px; padding-right: 24px; }
+      h1 { font-size: 28px; }
     }
   </style>
 </head>
 <body>
-  <nav>
-    <a href="https://dahopper.com" class="nav-home">← David Hopper</a>
-    <div class="nav-meta">Commercial Operations &amp; Strategy</div>
-  </nav>
-  <div class="essay-header">
-    <div class="essay-category">Essay · Sales Enablement</div>
-    <h1 class="essay-title">Designing Enablement for the Rep in Front of You</h1>
-    <div class="essay-meta">9 min read · David Hopper</div>
-  </div>
-  <div class="essay-body">
-    <p>Sales enablement programs fail at a surprisingly consistent rate given how much energy organizations put into them. The content is produced, the training is delivered, the tools are rolled out, and then — gradually or suddenly — the organization discovers that rep behavior has not changed in any durable way. Win rates are flat. Ramp times are stubbornly long. The playbook exists but is not being used.</p>
-    <p>The explanations that get offered are usually about adoption: the reps are resistant to change, they think they already know how to sell, they are too busy to engage with the material. These explanations are partially true. They are also incomplete. They focus on the behavior of the people who are supposed to receive the enablement rather than on the design of the enablement itself.</p>
-    <p>The more fundamental issue is that most sales enablement programs are designed by people who understand learning and development, or who understand marketing, or who understand sales process in the abstract, but who do not have an operational understanding of what it is like to carry a sales quota.</p>
-    <h2>What Quota Does to Priorities</h2>
-    <p>Variable compensation structures create a specific kind of urgency that shapes how salespeople allocate their attention in ways that are rational given their incentive structure but often invisible to the people designing training and enablement programs.</p>
-    <p>A rep on a quarterly quota is, at any given moment, acutely aware of where they stand relative to their number. That awareness is not background noise. It is the primary lens through which every decision about time allocation gets made. A training program that requires four hours of engagement during Q3 close is not competing with the rep's interest in learning. It is competing with three deals the rep is trying to close before the quarter ends. The rep is not being resistant. They are prioritizing correctly given the incentive structure they are operating under.</p>
-    <p>A company I worked with launched a major methodology training in the second week of December. The program was well-designed. The content was relevant. Attendance was poor, engagement was lower, and three months later almost nothing had changed in how reps sold. The design team was surprised. The reps weren't — they were in the middle of a Q4 push, trying to close deals before year end, and a multi-day training was simply not a competition they were willing to lose to a deal. The same program, rescheduled to February during a pipeline-building phase, landed completely differently.</p>
-    <p>This is a design problem. Programs that ignore the sales calendar, require investment at high-intensity moments in the quota cycle, or are structured around learning objectives rather than immediate deal application will consistently underperform relative to programs that are built around how reps actually make time allocation decisions.</p>
-    <p>The fix requires understanding the quota cycle deeply enough to design around it — scheduling intensive enablement work during pipeline-building phases rather than close phases, creating content that can be consumed in small segments rather than requiring dedicated learning time, and building application into the design so that the connection between the training and the current deal is immediate rather than theoretical.</p>
-    <h2>The Knowledge Transfer Trap</h2>
-    <p>A significant portion of sales enablement investment goes into knowledge transfer: product training, competitive intelligence, process documentation, methodology training. The underlying assumption is that reps who know more will sell more effectively. This assumption is not wrong, but it is incomplete in a way that explains a lot of enablement underperformance.</p>
-    <p>Knowledge transfer changes what reps know. It does not automatically change what they do. The gap between knowing and doing is particularly wide in selling because the situations that matter most — the discovery conversation that goes off script, the objection that surfaces at the worst moment, the competitive pressure that was not anticipated in the training — are precisely the situations where the rep has to make decisions quickly, under pressure, without time to consult the playbook.</p>
-    <p>The highest-impact enablement investment I've seen at a company wasn't a training program. It was a weekly thirty-minute deal debrief where the top rep walked through one active deal — what they knew, what they didn't, what they were going to do next. No slides. No theory. Just a specific deal and a specific rep's thinking about it. Other reps started applying the same logic to their own deals within a few weeks. The knowledge transfer happened in the doing, not in the learning.</p>
-    <p>What closes this gap is not more knowledge. It is practice in conditions that approximate the real situations. Role plays done well. Deal coaching that works backward from the specific dynamic in front of the rep rather than forward from a generic framework. Structured debrief of deals won and lost that extracts the real lessons from specific situations rather than confirming what everyone already believes.</p>
-    <p>These approaches require more organizational investment than knowledge transfer does. They also require enablement practitioners who understand what the difficult situations in the sales process actually feel like from the inside, not just what they look like from the outside. This is where programs designed by people without sales experience tend to underdeliver. They can design excellent content. They struggle to design the practice environments that make that content stick.</p>
-    <h2>The Incentive Alignment Gap</h2>
-    <p>Beyond the design of individual programs, there is a structural issue that undermines enablement investment across the board: the people delivering enablement are typically not evaluated on the outcomes that enablement is supposed to drive.</p>
-    <p>A learning and development leader is usually measured on program completion rates, satisfaction scores, and the number of hours of content produced or delivered. These are reasonable measures of activity. They have a limited relationship to whether reps are winning more deals, ramping faster, or applying the methodology in the field. The function optimizes for what it is measured on, which means it optimizes for activity that can be tracked rather than outcomes that matter.</p>
-    <p>The measurement problem extends to how enablement investment gets evaluated at the organizational level. It is genuinely difficult to isolate the impact of a specific training program on a rep's performance, because performance is affected by territory, manager quality, deal mix, market conditions, and a dozen other variables that interact with whatever the training provided. This difficulty leads organizations to measure enablement on the only things that are easy to measure — completion rates and satisfaction — and to accept the resulting ambiguity about whether it is actually working.</p>
-    <p>The organizations that have solved this most effectively tend to do two things differently. They set specific, measurable outcomes for each enablement initiative before it launches — not "improve sales effectiveness" but "reduce average ramp time by 30 days" or "increase win rate on competitive deals by five percentage points." And they give enablement leaders accountability for those outcomes, which forces a different kind of investment in measurement and in program design.</p>
-    <h2>What Practitioners Who Have Sold Bring</h2>
-    <p>The argument for involving people with sales experience in enablement design is not that other perspectives are irrelevant. Learning design expertise, instructional methodology, and facilitation skill are all genuinely valuable. The argument is that without the operational perspective, programs tend to be designed around how learning is supposed to work rather than how selling actually works.</p>
-    <p>The difference shows up in specific design choices. Programs designed without the operational perspective tend to be comprehensive when they should be selective — including everything that might be relevant rather than ruthlessly prioritizing what is most likely to change outcomes in the near term. They tend to front-load knowledge when they should sequence it — delivering all the context before the application, when reps learn best when they encounter the knowledge in the context of trying to do something. They tend to address skills in the abstract when the skills need to be situated in the specific dynamics of the company's actual sales motion, with the specific objections that actually come up, against the specific competitors that actually show up in deals.</p>
-    <p>None of this requires that enablement practitioners have personally carried a quota. It requires that they develop a genuine operational understanding of what the sales environment feels like from the inside, and that they design programs around that understanding rather than around a theoretical model of how learning works.</p>
-    <p>The reps who ignore the playbook are often telling you something about the playbook. The question worth asking is whether the program was designed for the job they are actually doing or for an idealized version of the job that someone imagined from the outside.</p>
-  </div>
-  <div class="essay-footer">
-    <div class="essay-footer-author">David Hopper · Commercial Operations &amp; Strategy</div>
-    <a href="https://dahopper.com" class="essay-footer-link">dahopper.com →</a>
-  </div>
+
+<nav>
+  <a href="https://dahopper.com" class="nav-home">David Hopper</a>
+  <a href="https://dahopper.com#thinking" class="nav-back">← All writing</a>
+</nav>
+
+<article class="essay">
+  <div class="essay-eyebrow">Field Notes · Commercial Operations</div>
+  <h1>Ramp Time Is a Systems Problem</h1>
+
+    <p>When a new rep takes nine months to reach productivity instead of four, the diagnosis is usually the same: wrong hire, slow learner, bad territory.</p>
+
+    <p>It's almost never that.</p>
+
+    <p>Ramp time is a systems problem. The bottleneck isn't usually the rep — it's the environment they're dropped into. An undocumented sales process that lives in the memory of two senior reps. A CRM that doesn't reflect how deals actually move. A product that's changed since the training was built. A manager who knows what good looks like but has never had to explain it to someone who doesn't.</p>
+
+    <p>The rep is asked to figure out a system that the organization itself hasn't fully figured out. Some do. Most take longer than they should.</p>
+
+    <p>The highest-impact enablement investment I've seen at a company wasn't a training program. It was a weekly thirty-minute deal debrief where the top rep walked through one active deal — what they knew, what they didn't, what they were going to do next. No slides. No framework. Just a specific deal and a specific rep's thinking about it. Other reps started applying the same logic to their own deals within a few weeks. The knowledge transfer happened in context, which is the only place it actually sticks.</p>
+
+    <p>The implication isn't "do more deal reviews." It's that most enablement programs are designed around information transfer — here's what you need to know — when the real bottleneck is context: here's how we think about the specific situations you're going to face in this specific motion against these specific competitors.</p>
+
+    <p>Information is the easy part. The organizations that ramp reps fastest have usually just made more of their institutional knowledge explicit, accessible, and connected to the actual deals in the pipeline.</p>
+
+    <p>That's a systems investment, not a training investment. It tends to be cheaper and it tends to work.</p>
+
+  <hr class="essay-divider" />
+</article>
+
+<footer>
+  <span class="footer-byline">David Hopper · Commercial Operations</span>
+  <a href="https://dahopper.com" class="footer-link">dahopper.com →</a>
+</footer>
+
 </body>
 </html>

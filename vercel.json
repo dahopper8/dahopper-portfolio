@@ -3,6 +3,30 @@
   "outputDirectory": "dist",
   "rewrites": [
     {
+      "source": "/writing/gtm-teardown",
+      "destination": "/writing/gtm-teardown/index.html"
+    },
+    {
+      "source": "/tools/gtm-teardown",
+      "destination": "/writing/gtm-teardown/index.html"
+    },
+    {
+      "source": "/writing/priming-window",
+      "destination": "/writing/priming-window/index.html"
+    },
+    {
+      "source": "/writing/deal-memo",
+      "destination": "/writing/deal-memo/index.html"
+    },
+    {
+      "source": "/tools/priming-window",
+      "destination": "/writing/priming-window/index.html"
+    },
+    {
+      "source": "/tools/deal-memo",
+      "destination": "/writing/deal-memo/index.html"
+    },
+    {
       "source": "/operator",
       "destination": "/operator/index.html"
     },

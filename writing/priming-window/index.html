@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Priming Window · David Hopper</title>
+  <meta name="description" content="Most B2B sales teams show up when a buyer is already shopping. The real opportunity is the 6–12 months before they know they need to." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Crimson+Pro:ital,wght@0,400;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #faf8f4; --border: #e0dbd4;
+      --text: #1a1917; --muted: #6b6560; --faint: #9a9690;
+      --accent: #1a6b3c;
+      --serif: 'Playfair Display', Georgia, serif;
+      --body: 'Crimson Pro', Georgia, serif;
+      --mono: 'DM Mono', monospace;
+    }
+    body { background: var(--bg); color: var(--text); font-family: var(--body); font-size: 19px; line-height: 1.75; }
+    nav { border-bottom: 1px solid var(--border); padding: 16px 48px; display: flex; justify-content: space-between; align-items: center; }
+    .nav-home { font-family: var(--mono); font-size: 10px; color: var(--accent); text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase; }
+    .nav-back { font-family: var(--mono); font-size: 10px; color: var(--faint); text-decoration: none; letter-spacing: 0.06em; }
+    .nav-back:hover { color: var(--muted); }
+    .essay { max-width: 660px; margin: 0 auto; padding: 64px 48px 80px; }
+    .essay-eyebrow { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 18px; }
+    h1 { font-family: var(--serif); font-size: clamp(28px, 4vw, 40px); font-weight: 700; line-height: 1.12; letter-spacing: -0.02em; color: var(--text); margin-bottom: 16px; }
+    .lede { font-family: var(--serif); font-style: italic; font-size: 20px; color: var(--muted); margin-bottom: 40px; line-height: 1.5; }
+    p { margin-bottom: 1.4em; }
+    h2 { font-family: var(--serif); font-size: 22px; font-weight: 700; color: var(--text); margin: 2.5em 0 0.75em; letter-spacing: -0.01em; }
+    .pullquote { font-family: var(--serif); font-style: italic; font-size: 21px; line-height: 1.5; color: var(--accent); border-left: 3px solid var(--accent); padding-left: 22px; margin: 2em 0; }
+    .signal-card { background: white; border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 6px; padding: 16px 18px; margin-bottom: 10px; }
+    .signal-num { font-family: var(--mono); font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 5px; }
+    .signal-title { font-family: var(--serif); font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 5px; }
+    .signal-desc { font-family: var(--body); font-size: 16px; color: var(--muted); line-height: 1.6; }
+    .table-wrap { border: 1px solid var(--border); border-radius: 6px; overflow: hidden; margin: 1.5em 0 2em; }
+    .table-row { display: grid; grid-template-columns: 1.2fr 1.4fr 1.4fr; border-bottom: 1px solid var(--border); }
+    .table-row:last-child { border-bottom: none; }
+    .table-cell { padding: 11px 14px; font-family: var(--mono); font-size: 11px; color: var(--muted); line-height: 1.5; border-right: 1px solid var(--border); }
+    .table-cell:last-child { border-right: none; }
+    .table-header .table-cell { background: white; font-weight: 600; color: var(--text); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; }
+    .table-phase { color: var(--accent); font-weight: 600; }
+    hr.divider { border: none; border-top: 1px solid var(--border); margin: 48px 0 32px; }
+    footer { max-width: 660px; margin: 0 auto; padding: 0 48px 60px; display: flex; justify-content: space-between; align-items: center; }
+    .footer-byline { font-family: var(--mono); font-size: 10px; color: var(--faint); }
+    .footer-link { font-family: var(--mono); font-size: 10px; color: var(--accent); text-decoration: none; letter-spacing: 0.06em; }
+    @media (max-width: 600px) {
+      nav, .essay, footer { padding-left: 24px; padding-right: 24px; }
+      h1 { font-size: 28px; }
+      .table-row { grid-template-columns: 1fr; }
+      .table-cell { border-right: none; border-bottom: 1px solid var(--border); }
+      .table-cell:last-child { border-bottom: none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="https://dahopper.com" class="nav-home">David Hopper</a>
+  <a href="https://dahopper.com#thinking" class="nav-back">← All writing</a>
+</nav>
+
+<article class="essay">
+  <div class="essay-eyebrow">Field Notes · Commercial Strategy</div>
+  <h1>The Priming Window</h1>
+  <p class="lede">Most B2B sales teams show up when a buyer is already shopping. The real opportunity is the 6–18 months before they know they need to.</p>
+
+  <p>Most B2B sales teams are running a reactive motion disguised as a proactive one. They call it pipeline — but what they're really doing is competing in the same window as every other vendor who showed up after the RFP went out, after the champion posted the evaluation criteria on LinkedIn, after the budget was already earmarked for a decision.</p>
+
+  <p>There's a different window. I've come to call it the priming window: the period — typically 6 to 18 months before a formal buying process begins — when the conditions that will drive a purchase are forming, but the buyer hasn't yet framed it as a purchase decision. They're experiencing friction. They're losing people. They're growing faster than their infrastructure. They're about to get a new boss with a different philosophy.</p>
+
+  <div class="pullquote">The team that reaches a buyer in the priming window doesn't compete on the RFP. They wrote it.</div>
+
+  <h2>Why the Window Exists</h2>
+
+  <p>B2B buying processes have a well-documented structure: a trigger event creates organizational pain, internal consensus builds around a solution category, a formal evaluation begins, vendors are shortlisted, and a decision is made. Most sales and marketing investment concentrates at the bottom of this funnel — SEO to capture intent, SDRs to respond to inbound, AEs to run demos for buyers already in process.</p>
+
+  <p>But the trigger event doesn't come from nowhere. Before a company "decides" to replace their CRM, their commercial ops leader has been frustrated with it for eight months. Before a manufacturer launches an RFP for a new GTM partner, their VP of Sales has been making excuses to the board for two quarters. Before a SaaS company starts evaluating CS platforms, their NRR has been declining for a year.</p>
+
+  <p>These pre-trigger conditions are observable. They leave signals. And they are almost entirely ignored by sales teams optimizing for near-term pipeline.</p>
+
+  <h2>What the Signals Look Like</h2>
+
+  <p>The priming window isn't invisible — it's just not where most teams are looking. Five signal categories consistently precede buying activity by 6–18 months:</p>
+
+  <div class="signal-card">
+    <div class="signal-num">01 · Leadership Change</div>
+    <div class="signal-title">A new executive in a decision-relevant role</div>
+    <p class="signal-desc">New VPs of Sales, Marketing, CS, and Operations are the single most reliable buying signal in B2B. They arrive with mandates. They benchmark their inherited infrastructure against best-in-class. They have 90 days to establish credibility with their board. They buy.</p>
+  </div>
+
+  <div class="signal-card">
+    <div class="signal-num">02 · Growth Inflection</div>
+    <div class="signal-title">Revenue or headcount crossing a structural threshold</div>
+    <p class="signal-desc">Companies that double in size often find their existing infrastructure was built for a different business. Growth doesn't cause buying decisions; it reveals the cost of deferred infrastructure investment.</p>
+  </div>
+
+  <div class="signal-card">
+    <div class="signal-num">03 · Acquisition or Restructuring</div>
+    <div class="signal-title">M&A, divestitures, or major reorganizations</div>
+    <p class="signal-desc">Post-acquisition integration creates a forced rationalization of commercial systems. The first 18 months after a transaction are among the most active commercial buying windows in any company's lifecycle.</p>
+  </div>
+
+  <div class="signal-card">
+    <div class="signal-num">04 · Performance Decline Signal</div>
+    <div class="signal-title">A lagging metric that precedes a recognized problem</div>
+    <p class="signal-desc">NRR compression, win rate decline, elongating sales cycles, rising CAC — these metrics deteriorate visibly before leadership names them as problems. If you can identify them in public signals, you're reading the problem before it's been acknowledged internally.</p>
+  </div>
+
+  <div class="signal-card">
+    <div class="signal-num">05 · Technology Transition</div>
+    <div class="signal-title">A platform migration or stack rationalization</div>
+    <p class="signal-desc">When a company migrates from on-prem to cloud, or consolidates a fragmented martech stack, adjacent buying decisions follow. Technology transitions expose integration gaps, capability gaps, and workflow gaps simultaneously.</p>
+  </div>
+
+  <h2>The Operationalization Problem</h2>
+
+  <p>The reason most teams don't work the priming window isn't that they don't believe it exists. It's that their commercial infrastructure isn't built for it. Quota attainment is measured quarterly. Pipeline coverage ratios are built on 90-day demand. SDR compensation is tied to meetings booked, not accounts developed. The entire operating model rewards fishing downstream.</p>
+
+  <p>Priming window strategy requires a different architecture: an account selection model that can identify pre-trigger accounts from signal data, content designed to provide value to a buyer who doesn't know they're a buyer yet, and leadership that can hold the tension between this quarter's number and next year's pipeline.</p>
+
+  <h2>What It Looks Like in Practice</h2>
+
+  <p>At a PE-backed manufacturer I worked with, we built a timing-based prospecting system that tracked municipal budget cycles, capital improvement plan filings, bond measure outcomes, and parks department leadership changes. These signals preceded formal RFPs by 9–18 months. By the time the RFP appeared, we had often already built a relationship with the key stakeholder — and in several cases helped shape the specification criteria.</p>
+
+  <p>In a regulated services environment, a similar logic applied to accounts facing compliance deadlines. A new regulatory standard or certification requirement created a priming window with a hard close date. We mapped those windows 12–18 months out and built coverage models around them.</p>
+
+  <p>Neither was a sophisticated technology play. They were disciplined signal-tracking disciplines applied to well-understood buying patterns. The underlying logic is consistent: the buyer's journey starts before the buyer thinks it does.</p>
+
+  <h2>A Framework for Building the Motion</h2>
+
+  <div class="table-wrap">
+    <div class="table-row table-header">
+      <div class="table-cell">Phase</div>
+      <div class="table-cell">What You're Doing</div>
+      <div class="table-cell">What the Buyer Is Doing</div>
+    </div>
+    <div class="table-row">
+      <div class="table-cell table-phase">Signal Detection<br>12–18 mo out</div>
+      <div class="table-cell">Identifying pre-trigger accounts via firmographic and behavioral signals</div>
+      <div class="table-cell">Experiencing early friction; hasn't named it as a problem yet</div>
+    </div>
+    <div class="table-row">
+      <div class="table-cell table-phase">Value Seeding<br>9–12 mo out</div>
+      <div class="table-cell">Providing high-relevance content, benchmarks, or insight — no pitch</div>
+      <div class="table-cell">Building awareness of the problem category; may be benchmarking internally</div>
+    </div>
+    <div class="table-row">
+      <div class="table-cell table-phase">Relationship Building<br>6–9 mo out</div>
+      <div class="table-cell">Establishing a trusted advisor relationship with the likely champion</div>
+      <div class="table-cell">Beginning to socialize the problem internally; building internal consensus</div>
+    </div>
+    <div class="table-row">
+      <div class="table-cell table-phase">Problem Framing<br>3–6 mo out</div>
+      <div class="table-cell">Helping the buyer articulate the business case for change</div>
+      <div class="table-cell">Drafting the internal justification; evaluating solution categories</div>
+    </div>
+    <div class="table-row">
+      <div class="table-cell table-phase">Solution Positioning<br>0–3 mo out</div>
+      <div class="table-cell">Positioned as the obvious choice when the formal process begins</div>
+      <div class="table-cell">Running formal evaluation — or, ideally, skipping it</div>
+    </div>
+  </div>
+
+  <p>Priming window strategy isn't a replacement for demand generation or active pipeline. Most commercial organizations need all three motions running simultaneously. The question is resource allocation — and most teams are dramatically over-indexed on the bottom of the funnel.</p>
+
+  <p>The teams that sustain it have built leading indicators into their operating model — metrics that measure the health of early-stage relationship development, not just the pipeline it eventually produces. They know what's coming before it shows up in the forecast.</p>
+
+  <hr class="divider" />
+</article>
+
+<footer>
+  <span class="footer-byline">David Hopper · Commercial Operations</span>
+  <a href="https://dahopper.com" class="footer-link">dahopper.com →</a>
+</footer>
+
+</body>
+</html>

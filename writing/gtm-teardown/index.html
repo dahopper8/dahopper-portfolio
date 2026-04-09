@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GTM Operating Model Teardown · David Hopper</title>
+  <meta name="description" content="Two fictional-but-realistic teardowns — a PE-backed manufacturer and a scaling SaaS CS org. What's broken, why, and what to fix first." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Crimson+Pro:ital,wght@0,400;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #faf8f4; --border: #e0dbd4; --card: #ffffff;
+      --text: #1a1917; --muted: #6b6560; --faint: #9a9690;
+      --accent: #1a6b3c;
+      --serif: 'Playfair Display', Georgia, serif;
+      --body: 'Crimson Pro', Georgia, serif;
+      --mono: 'DM Mono', monospace;
+    }
+    body { background: var(--bg); color: var(--text); font-family: var(--body); font-size: 18px; line-height: 1.75; }
+
+    nav { border-bottom: 1px solid var(--border); padding: 16px 48px; display: flex; justify-content: space-between; align-items: center; }
+    .nav-home { font-family: var(--mono); font-size: 10px; color: var(--accent); text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase; }
+    .nav-back { font-family: var(--mono); font-size: 10px; color: var(--faint); text-decoration: none; letter-spacing: 0.06em; }
+    .nav-back:hover { color: var(--muted); }
+
+    .hero { max-width: 760px; margin: 0 auto; padding: 52px 48px 32px; }
+    .hero-eyebrow { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+    h1 { font-family: var(--serif); font-size: clamp(26px, 3.5vw, 38px); font-weight: 700; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 12px; }
+    .hero-sub { font-size: 16px; color: var(--muted); line-height: 1.6; font-family: var(--mono); }
+
+    /* Tabs */
+    .tabs-wrap { max-width: 760px; margin: 0 auto; padding: 0 48px; }
+    .tabs { display: flex; border-bottom: 1px solid var(--border); gap: 0; }
+    .tab-btn { background: none; border: none; padding: 14px 20px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); border-bottom: 2px solid transparent; cursor: pointer; transition: all 0.15s; text-align: left; line-height: 1.4; }
+    .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+    .tab-btn:hover:not(.active) { color: var(--muted); }
+    .tab-subtitle { font-size: 9px; color: var(--faint); font-weight: 400; display: block; margin-top: 2px; }
+
+    /* Content */
+    .content { max-width: 760px; margin: 0 auto; padding: 44px 48px 80px; animation: fadeIn 0.25s ease; }
+    .archetype { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; }
+    h2 { font-family: var(--serif); font-size: 22px; font-weight: 700; color: var(--text); margin: 0 0 16px; letter-spacing: -0.01em; }
+    p { margin-bottom: 1.3em; }
+    .divider { width: 32px; height: 2px; background: var(--accent); margin: 36px 0; }
+
+    /* Diagnosis items */
+    .diagnosis-item { display: flex; gap: 18px; margin-bottom: 26px; }
+    .diag-num { font-family: var(--mono); font-size: 18px; color: var(--border); font-weight: 600; min-width: 28px; padding-top: 3px; }
+    .diag-title { font-family: var(--serif); font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+    .diag-detail { font-size: 17px; color: var(--muted); line-height: 1.7; }
+
+    /* 90-day phases */
+    .phase { border-left: 3px solid var(--accent); padding-left: 20px; margin-bottom: 28px; }
+    .phase-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 12px; font-weight: 600; }
+    .phase-action { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 10px; }
+    .phase-dot { color: var(--accent); flex-shrink: 0; margin-top: 7px; font-size: 7px; }
+    .phase-action p { font-size: 16px; color: var(--muted); line-height: 1.65; margin: 0; }
+
+    /* Blockquote */
+    blockquote { border-left: 3px solid var(--border); padding-left: 20px; margin: 0; font-style: italic; font-size: 17px; color: var(--muted); line-height: 1.75; }
+
+    hr.divider-line { border: none; border-top: 1px solid var(--border); margin: 44px 0 28px; }
+
+    footer { max-width: 760px; margin: 0 auto; padding: 0 48px 60px; display: flex; justify-content: space-between; align-items: center; }
+    .footer-byline { font-family: var(--mono); font-size: 10px; color: var(--faint); }
+    .footer-link { font-family: var(--mono); font-size: 10px; color: var(--accent); text-decoration: none; letter-spacing: 0.06em; }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+    @media (max-width: 600px) { nav, .hero, .tabs-wrap, .content, footer { padding-left: 24px; padding-right: 24px; } h1 { font-size: 26px; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="https://dahopper.com" class="nav-home">David Hopper</a>
+  <a href="https://dahopper.com#thinking" class="nav-back">← All writing</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-eyebrow">Teardown · Commercial Diagnostics</div>
+  <h1>GTM Operating Model Teardown</h1>
+  <p class="hero-sub">What's actually broken, why it's broken, and what a strong operator fixes first. Two fictional-but-realistic archetypes.</p>
+</div>
+
+<div class="tabs-wrap">
+  <div class="tabs" id="tabs"></div>
+</div>
+
+<div id="content"></div>
+
+<footer>
+  <span class="footer-byline">David Hopper · Commercial Operations</span>
+  <a href="https://dahopper.com" class="footer-link">dahopper.com →</a>
+</footer>
+
+<script>
+const teardowns = [
+  {
+    label: "PE-Backed Manufacturer",
+    subtitle: "$200–800M · 3–7 yrs post-acq.",
+    archetype: "Archetype: Apex Industrial Holdings",
+    situation: "Apex Industrial Holdings is a $450M PE-backed manufacturer of specialty coating equipment, acquired by a mid-market fund four years ago. The fund's thesis was operational improvement and international expansion. Revenue has grown 18% since acquisition — mostly through a bolt-on — but EBITDA margin has compressed 200bps. The new CFO has flagged commercial inefficiency as the primary drag.",
+    diagnosis: [
+      { title: "The pipeline is a forecast, not a funnel", detail: "Apex's CRM holds 340 open opportunities. 60% have had no activity in 90+ days. Stage progression is manual and optimistic — reps advance deals when they feel good about them, not when buyers take action. The result is a pipeline that tells leadership what they want to hear until Q4, when everything compresses into a desperate close quarter." },
+      { title: "Sales and marketing operate in separate buildings", detail: "Marketing generates leads by volume. Sales ignores most of them. There's no agreed ICP definition, no lead scoring, and no SLA between functions. Marketing measures MQLs. Sales measures closed revenue. Nobody measures the conversion between them, which means nobody owns the gap — and the gap is where most of the value leaks." },
+      { title: "Pricing is institutional memory, not a system", detail: "Apex's pricing lives in the heads of three senior reps and a 2019 Excel model. Discounting authority is informal. Two reps consistently close at 8–12% below list; nobody knows why, and nobody has analyzed whether those deals are profitable. The PE sponsor is sitting on a pricing lever they haven't pulled because nobody has built the infrastructure to pull it safely." },
+      { title: "The acquisition hasn't been integrated commercially", detail: "The bolt-on acquired 18 months ago brought a complementary product line and a regional sales team. Those reps still sell the old product exclusively. Cross-sell rate is near zero. The combined ICP — a larger, more complex buyer — hasn't been defined, and no one has built the motion to reach them." }
+    ],
+    phases: [
+      { label: "Days 1–30", actions: [
+        "Pipeline audit: export all open opps, categorize by last activity, stage velocity, and rep. Kill or quarantine anything stale. Build a real number.",
+        "Define the ICP jointly with sales leadership — not a committee document, a one-pager with three firmographic tiers and a disqualification checklist.",
+        "Pull 24 months of closed-won data and identify the 20% of deals that drove 60%+ of margin. That's the real ICP."
+      ]},
+      { label: "Days 31–60", actions: [
+        "Implement stage-gate criteria in CRM — deals can't advance without a defined buyer action, not rep opinion. Forecast immediately becomes more honest.",
+        "Stand up a weekly deal review cadence with a standard template: stage, next buyer action, blockers, close date confidence. Takes 45 minutes. Surfaces reality fast.",
+        "Audit the bottom 15% of deals by margin. Identify the discount pattern. Build a pricing authorization matrix — not to eliminate discounting, but to make it visible and intentional."
+      ]},
+      { label: "Days 61–90", actions: [
+        "Build the cross-sell motion: map the combined ICP, identify the 50 best existing customers for the bolt-on product, and create a targeted outreach sequence.",
+        "Establish a marketing-to-sales SLA: define MQL criteria, response time commitment, and a monthly conversion review. Marketing starts optimizing for pipeline quality, not lead volume.",
+        "Present a 90-day commercial diagnostic to the board: here's where value is leaking, here's the infrastructure we're building, here's the 12-month trajectory."
+      ]}
+    ],
+    differently: "I'd move faster on the pricing audit. It feels risky to touch pricing before you understand the full picture, but the picture gets clearer faster when you start pulling on that thread. In every PE-backed commercial transformation I've been part of, pricing discipline delivered the fastest margin impact — and the delay was always fear of disrupting reps, not lack of data."
+  },
+  {
+    label: "High-Growth B2B SaaS",
+    subtitle: "Series C/D · $50–150M ARR",
+    archetype: "Archetype: Meridian Analytics",
+    situation: "Meridian Analytics is a $90M ARR B2B SaaS company in the data observability space, recently closed a $75M Series D. They have 4,500 customers, a 107% NRR, and a CS team that grew from 8 to 34 people in 18 months. The board's top concern: NRR is flattening and CAC payback has stretched to 28 months. The SVP of CS is new, 90 days in, and the org she inherited was built for a different scale.",
+    diagnosis: [
+      { title: "CS is doing support's job and nobody budgeted for it", detail: "Meridian's CSMs spend an estimated 40% of their time on reactive tickets, onboarding questions, and basic how-to requests — work that belongs in support or a digital self-serve layer. The boundary between CS and support was never defined at the previous scale, and now it's consuming the expansion capacity the business desperately needs." },
+      { title: "Health scoring is measuring activity, not risk", detail: "Gainsight is live but configured around CSM-touch metrics: number of calls, last login, QBR completed. These measure whether the CSM did their job, not whether the customer is getting value. The accounts that churn surprise everyone because they were 'green' in the system — regular calls, no progress toward the original business case." },
+      { title: "Expansion is accidental, not systematic", detail: "Meridian's 107% NRR is real, but it's concentrated in the top 15% of accounts — enterprise customers who expanded organically. The mid-market segment, 55% of the base, has sub-100% NRR. There's no defined expansion motion, no trigger-based playbook, and no handoff from CS to sales when an account is ready for a commercial conversation." },
+      { title: "Onboarding doesn't create the outcome it promises", detail: "Time-to-first-value averages 47 days. Industry benchmark for comparable tools is 14–21 days. The onboarding process was designed when Meridian had 200 customers. At 4,500 customers it's a bottleneck. Customers who don't see value in 30 days churn at 3x the rate of those who do." }
+    ],
+    phases: [
+      { label: "Days 1–30", actions: [
+        "Audit all CSM time allocation for two weeks — actual time, not estimates. Categorize every activity as expansion-oriented, relationship-oriented, or reactive/support. The number will be uncomfortable.",
+        "Pull the churn cohort for the last 12 months and build a pre-churn health profile: what did these accounts look like 90 days before they churned? That's the real health score input.",
+        "Map the current onboarding journey end-to-end. Identify every handoff, every delay, and every step that requires a human when it shouldn't."
+      ]},
+      { label: "Days 31–60", actions: [
+        "Redesign health scoring around outcome proximity, not activity: Is the customer using the features tied to their stated business case? Are they achieving the benchmarks from the sales process?",
+        "Define the CS/support boundary explicitly. Build a tiered support model — self-serve for how-to, support for technical issues, CS for business outcomes and expansion. Start redirecting reactive work within 60 days.",
+        "Identify the 200 mid-market accounts most likely to expand based on product usage and company growth signals. Assign them a dedicated expansion motion — not a CSM check-in, a commercial play."
+      ]},
+      { label: "Days 61–90", actions: [
+        "Launch a redesigned onboarding track: milestone-gated, outcome-focused, with a hard 21-day time-to-first-value target. Instrument it so you know exactly where customers are slowing down.",
+        "Build a CS-to-Sales expansion handoff protocol: trigger criteria, warm intro process, compensation alignment. Expansion should feel like a natural next step, not an interruption.",
+        "Present a full CS operations diagnostic to the SVP and board: NRR bridge by segment, churn root cause analysis, and a 12-month roadmap with leading indicators that predict NRR 90 days out."
+      ]}
+    ],
+    differently: "I'd involve the product team earlier. CS ops transformations that don't loop in product end up building workarounds for gaps that product could close permanently. The onboarding bottleneck at Meridian almost certainly has a product component — features that could be self-serve, in-app guidance that doesn't exist, activation logic that requires human explanation. The ops fix buys time; the product fix scales."
+  }
+];
+
+let active = 0;
+
+function render() {
+  // Tabs
+  document.getElementById('tabs').innerHTML = teardowns.map((t, i) =>
+    `<button class="tab-btn ${i === active ? 'active' : ''}" onclick="goto(${i})">
+      ${t.label}<span class="tab-subtitle">${t.subtitle}</span>
+    </button>`
+  ).join('');
+
+  const t = teardowns[active];
+
+  document.getElementById('content').innerHTML = `
+    <div class="content">
+      <div class="archetype">${t.archetype}</div>
+
+      <h2>The Situation</h2>
+      <p>${t.situation}</p>
+
+      <div class="divider"></div>
+
+      <h2>The Diagnosis</h2>
+      ${t.diagnosis.map((d, i) => `
+        <div class="diagnosis-item">
+          <div class="diag-num">0${i+1}</div>
+          <div>
+            <div class="diag-title">${d.title}</div>
+            <div class="diag-detail">${d.detail}</div>
+          </div>
+        </div>
+      `).join('')}
+
+      <div class="divider"></div>
+
+      <h2>What I'd Fix First: The 90-Day Plan</h2>
+      ${t.phases.map(phase => `
+        <div class="phase">
+          <div class="phase-label" style="color: var(--accent)">${phase.label}</div>
+          ${phase.actions.map(a => `
+            <div class="phase-action">
+              <span class="phase-dot">◆</span>
+              <p>${a}</p>
+            </div>
+          `).join('')}
+        </div>
+      `).join('')}
+
+      <div class="divider"></div>
+
+      <h2>What I'd Do Differently the Second Time</h2>
+      <blockquote>${t.differently}</blockquote>
+
+      <hr class="divider-line" />
+    </div>
+  `;
+}
+
+function goto(i) {
+  active = i;
+  render();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+render();
+</script>
+</body>
+</html>

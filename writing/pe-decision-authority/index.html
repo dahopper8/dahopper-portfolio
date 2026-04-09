@@ -4,174 +4,124 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Who Actually Decides? · David Hopper</title>
-  <meta name="description" content="David Hopper on commercial operations and go-to-market strategy." />
+  <meta name="description" content="Who Actually Decides?" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Crimson+Pro:ital,wght@0,400;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      background: #faf8f4;
-      color: #1a1a18;
-      font-family: 'Crimson Pro', Georgia, serif;
-      font-size: 19px;
-      line-height: 1.8;
+    :root {
+      --bg: #faf8f4; --card: #ffffff; --border: #e0dbd4;
+      --text: #1a1917; --muted: #6b6560; --faint: #9a9690;
+      --accent: #1a6b3c;
+      --serif: 'Playfair Display', Georgia, serif;
+      --body: 'Crimson Pro', Georgia, serif;
+      --mono: 'DM Mono', monospace;
     }
+    body { background: var(--bg); color: var(--text); font-family: var(--body); font-size: 19px; line-height: 1.75; }
+
     nav {
-      background: #0f172a;
-      padding: 18px 48px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #1e293b;
-      position: sticky;
-      top: 0;
-      z-index: 100;
+      border-bottom: 1px solid var(--border);
+      padding: 16px 48px;
+      display: flex; justify-content: space-between; align-items: center;
     }
-    .nav-home {
-      font-family: 'DM Mono', monospace;
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #1a6b3c;
-      text-decoration: none;
-    }
-    .nav-home:hover { color: #2ec27e; }
-    .nav-meta {
-      font-family: 'DM Mono', monospace;
-      font-size: 10px;
-      color: #334155;
-      letter-spacing: 0.06em;
-    }
-    .essay-header {
-      max-width: 680px;
+    .nav-home { font-family: var(--mono); font-size: 10px; color: var(--accent); text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase; }
+    .nav-back { font-family: var(--mono); font-size: 10px; color: var(--faint); text-decoration: none; letter-spacing: 0.06em; }
+    .nav-back:hover { color: var(--muted); }
+
+    .essay {
+      max-width: 640px;
       margin: 0 auto;
-      padding: 56px 48px 40px;
-      border-bottom: 1px solid #e0dbd4;
+      padding: 64px 48px 80px;
     }
-    .essay-category {
-      font-family: 'DM Mono', monospace;
+
+    .essay-eyebrow {
+      font-family: var(--mono);
       font-size: 10px;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: #1a6b3c;
-      margin-bottom: 16px;
+      color: var(--accent);
+      margin-bottom: 18px;
     }
-    .essay-title {
-      font-size: 42px;
-      font-weight: 600;
-      line-height: 1.12;
-      color: #0a0a08;
-      margin-bottom: 20px;
+
+    h1 {
+      font-family: var(--serif);
+      font-size: clamp(28px, 4vw, 38px);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 40px;
+    }
+
+    p {
+      margin-bottom: 1.5em;
+      color: var(--text);
+    }
+
+    h2 {
+      font-family: var(--serif);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text);
+      margin: 2.5em 0 0.75em;
       letter-spacing: -0.01em;
     }
-    .essay-meta {
-      font-family: 'DM Mono', monospace;
-      font-size: 11px;
-      color: #9a9690;
-      letter-spacing: 0.06em;
+
+    .essay-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 48px 0 32px;
     }
-    .essay-body {
-      max-width: 680px;
+
+    footer {
+      max-width: 640px;
       margin: 0 auto;
-      padding: 48px 48px 100px;
-    }
-    .essay-body p {
-      margin-bottom: 28px;
-      color: #2a2520;
-    }
-    .essay-body h2 {
-      font-size: 24px;
-      font-weight: 600;
-      color: #0a0a08;
-      margin: 48px 0 20px;
-      letter-spacing: -0.01em;
-      line-height: 1.3;
-    }
-    .essay-body h2::before {
-      content: '';
-      display: block;
-      width: 28px;
-      height: 2px;
-      background: #1a6b3c;
-      margin-bottom: 16px;
-    }
-    .essay-footer {
-      max-width: 680px;
-      margin: 0 auto;
-      padding: 28px 48px 48px;
-      border-top: 1px solid #e0dbd4;
+      padding: 0 48px 60px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
-    .essay-footer-author {
-      font-family: 'DM Mono', monospace;
-      font-size: 11px;
-      color: #9a9690;
-    }
-    .essay-footer-link {
-      font-family: 'DM Mono', monospace;
-      font-size: 11px;
-      color: #1a6b3c;
-      text-decoration: none;
-      letter-spacing: 0.06em;
-    }
-    .essay-footer-link:hover { color: #2ec27e; }
-    @media (max-width: 700px) {
-      nav { padding: 16px 24px; }
-      .essay-header { padding: 36px 24px 28px; }
-      .essay-title { font-size: 30px; }
-      .essay-body { padding: 32px 24px 80px; }
-      .essay-footer { padding: 20px 24px 40px; flex-direction: column; gap: 12px; align-items: flex-start; }
+    .footer-byline { font-family: var(--mono); font-size: 10px; color: var(--faint); }
+    .footer-link { font-family: var(--mono); font-size: 10px; color: var(--accent); text-decoration: none; letter-spacing: 0.06em; }
+
+    @media (max-width: 600px) {
+      nav, .essay, footer { padding-left: 24px; padding-right: 24px; }
+      h1 { font-size: 28px; }
     }
   </style>
 </head>
 <body>
-  <nav>
-    <a href="https://dahopper.com" class="nav-home">← David Hopper</a>
-    <div class="nav-meta">Commercial Operations &amp; Strategy</div>
-  </nav>
-  <div class="essay-header">
-    <div class="essay-category">Essay · PE-Backed Environments</div>
-    <h1 class="essay-title">Who Actually Decides?</h1>
-    <div class="essay-meta">9 min read · David Hopper</div>
-  </div>
-  <div class="essay-body">
-    <p>There's a conversation that happens in almost every PE-backed company, usually within the first year of a new investment. It goes something like this: the operating partner has a strong view on how the commercial org should be restructured. The CEO has a different view. Both views are reasonable. Neither person is wrong. And yet the conversation keeps happening, in quarterly reviews, in board prep calls, in one-on-ones that end without resolution, because nobody has clearly established whose call it actually is.</p>
-    <p>The pattern is structural, not personal, and it is one of the most consistent sources of value leakage in PE-backed environments.</p>
-    <h2>The Gap Nobody Names</h2>
-    <p>Private equity operating models are designed around the idea that sponsors bring expertise, capital, and accountability to a management team that brings domain knowledge and execution capability. In theory, these two things complement each other. In practice, the handoff between them is rarely defined with any precision.</p>
-    <p>What does the operating partner own versus advise on? What decisions require board approval versus management discretion? When the sponsor has a strong view and management has a conflicting one, who defers to whom — and under what conditions?</p>
-    <p>Most investment agreements don't answer these questions at the level of specificity that daily operating decisions require. The governance documents establish board rights, information rights, and consent thresholds for major transactions. They are largely silent on the operational questions that actually consume most of an executive team's energy: hiring decisions below the C-suite, go-to-market investments, pricing changes, technology selections, commercial org design.</p>
-    <p>The result is a de facto authority structure that gets negotiated informally, varies by individual, and shifts with the political winds of each board cycle. It works reasonably well when things are going well. When things are not going well, which is precisely when clarity matters most, it tends to break down.</p>
-    <h2>How the Ambiguity Manifests</h2>
-    <p>The most visible symptom is decision velocity. Executives in PE-backed environments frequently describe a version of the same experience: they know what they want to do, they believe they have the authority to do it, but they also know that moving without alignment from the sponsor carries political risk. So they slow down. They over-prepare. They schedule additional calls. They wait.</p>
-    <p>The behavior is rational given the ambiguity. When the cost of making an unauthorized decision is unclear, the safe choice is to seek authorization, even when authorization wasn't technically required. The cumulative effect is an organization that moves slower than its market, not because it lacks talent or conviction, but because its decision architecture creates friction at exactly the moments when speed matters.</p>
-    <p>Consider what this looks like in practice. A commercial org redesign sat in limbo for four months at a company I worked with. The CEO had drafted a proposal. The operating partner had a different view. Both were reasonable. Neither party was wrong. The delay wasn't about the org design — it was about the fact that neither party had established, at the outset of the relationship, whether this category of decision belonged to management or to the board. By the time it was resolved, the team had already adapted around the ambiguity in ways that were harder to unwind than the original problem.</p>
-    <p>The second symptom is initiative fragmentation. Operating partners often drive parallel workstreams across a portfolio (commercial excellence programs, pricing reviews, technology implementations) without explicit integration into the company's own planning cadence. Management teams, unsure of how to treat these initiatives (as mandates? as suggestions? as resources they can accept or decline?), often treat them as a separate track. Work gets done. Reports get produced. And then the recommendations sit in a folder while the business continues operating as it always has, because nobody was ever clear about whether implementation was expected or optional.</p>
-    <p>The third symptom is the one that's hardest to see from the outside: the quality of internal decision-making degrades. When executives aren't sure which decisions are truly theirs, they tend to either over-escalate (bringing things to the board that should be handled at the management level) or under-escalate (making calls that should have had sponsor input without seeking it). Both patterns erode trust over time: the first by creating board fatigue, the second by creating unpleasant surprises.</p>
-    <h2>Why It Persists</h2>
-    <p>The structural gap persists for a few reasons, none of which are particularly mysterious.</p>
-    <p>First, it's uncomfortable to define. Establishing explicit decision authority requires both the sponsor and the management team to be honest about who is actually running the company. That conversation has political weight. Sponsors who frame themselves as value-add partners rather than controlling shareholders are often reluctant to produce documentation that looks like a governance overlay. Management teams who want to preserve their autonomy are reluctant to invite scrutiny by asking for clarity on the boundaries.</p>
-    <p>Second, it's context-dependent in ways that resist standardization. The right authority structure for a founder-led company two years post-acquisition is different from the right structure for a professional management team three years into a buy-and-build strategy. The right structure when the business is performing above plan is different from the right structure when it's missing EBITDA targets. A static document can't capture all of that nuance, and most organizations don't revisit the question dynamically.</p>
-    <p>Third, good judgment often masks the gap. When the operating partner and the CEO have strong mutual trust and aligned views, the ambiguity doesn't surface as a problem. Decisions get made, initiatives get implemented, and nobody feels the need to formalize what's working informally. The gap only becomes visible when that trust frays, usually under pressure and usually at the worst possible moment.</p>
-    <h2>What a Better Structure Looks Like</h2>
-    <p>A rigid RACI matrix that covers every conceivable decision tends to produce something technically complete and practically useless.</p>
-    <p>What actually works is a more targeted version of the same idea: explicit agreement on the categories of decision that are most likely to generate friction, combined with a clear process for resolving disagreement when it arises.</p>
-    <p>In commercial operations specifically, the categories worth defining include go-to-market strategy and customer segmentation, major organizational changes (including headcount above a certain level), technology investments above a defined threshold, pricing architecture and discount authority, and key commercial hires. These are not the only decisions that matter, but they are the ones where sponsor and management views are most likely to diverge, and where the cost of ambiguity is highest.</p>
-    <p>The resolution process matters as much as the categories. The most functional PE-backed environments share a common feature: there is a known, predictable way to surface a genuine disagreement and get it resolved. It might be a monthly operating review where contested decisions are tabled explicitly. It might be a direct line between the CEO and a specific partner at the fund. The mechanism matters less than the fact that it exists and is understood by everyone who needs to use it.</p>
-    <p>Equally important is the distinction between disagreement and veto. In most PE relationships, the sponsor has formal veto rights over a defined set of major decisions. But operating partners often exercise informal veto authority over a much broader range of decisions, not through any formal mechanism but through the simple fact that the management team knows that moving without alignment carries risk. Making that informal veto explicit, defining what it covers and what it doesn't, removes a significant source of organizational friction.</p>
-    <h2>The Conversation Worth Having</h2>
-    <p>For operating partners, the work here is to be honest about the scope of your actual influence versus your formal authority, and to invest in defining the boundary between them. The most effective operating partners I've worked with are the ones who are clear-eyed about this distinction. They know which decisions they need to own, which ones they need to influence, and which ones they need to stay out of. That clarity makes them faster, not slower.</p>
-    <p>For company leaders, the work is to ask for the clarity you need rather than operating in the gap and hoping it doesn't become a problem. The conversation is uncomfortable. It may surface disagreements that were easier to leave implicit. But the alternative, a years-long operating relationship where neither party is fully sure who is running the company, is more expensive than the conversation.</p>
-    <p>Both of these are design problems. And like most design problems, they are much cheaper to address at the beginning than to untangle after something has gone wrong.</p>
-    <p>The companies that get this right have made the investment, usually early and often imperfectly, in building a governance structure that matches how the organization actually makes decisions, rather than one that describes how everyone wishes it would.</p>
-    <p>That investment pays returns throughout the hold period. The absence of it tends to compound.</p>
-  </div>
-  <div class="essay-footer">
-    <div class="essay-footer-author">David Hopper · Commercial Operations &amp; Strategy</div>
-    <a href="https://dahopper.com" class="essay-footer-link">dahopper.com →</a>
-  </div>
+
+<nav>
+  <a href="https://dahopper.com" class="nav-home">David Hopper</a>
+  <a href="https://dahopper.com#thinking" class="nav-back">← All writing</a>
+</nav>
+
+<article class="essay">
+  <div class="essay-eyebrow">Field Notes · Commercial Operations</div>
+  <h1>Who Actually Decides?</h1>
+
+    <p>Here's a dynamic I've seen play out more than once in PE-backed companies, usually in the first year after close.</p>
+
+    <p>The operating partner has a view on how the commercial org should be structured. The CEO has a different view. Both views are reasonable. Both parties know a conversation needs to happen. And neither one initiates it — not because they're conflict-averse in general, but because the specific nature of this relationship makes escalation feel loaded in a way it doesn't in other contexts.</p>
+
+    <p>The CEO doesn't push back because it feels presumptuous. The operating partner doesn't press because it feels like overstepping. Both perform alignment in the room. Both leave the room with the same private disagreement they walked in with. The org absorbs the cost.</p>
+
+    <p>This isn't a governance problem in the technical sense. The legal documents are fine. The consent thresholds are defined. What isn't defined — and what nobody wants to be the one to define — is the informal authority structure that governs the decisions that actually consume most of an executive team's energy: org design below the C-suite, go-to-market investments, pricing changes, technology selections.</p>
+
+    <p>The result is a de facto operating model built on mutual deference. It works when things are going well. When things are not going well, it tends to collapse at exactly the moment clarity matters most — because now the stakes of getting it wrong are higher, and the social cost of naming the impasse is higher too.</p>
+
+    <p>The companies that get this right usually had an uncomfortable conversation early. Not a formal governance document — a direct one. Someone said: here's how I think this should work, here's where I want your input, here's where I need to make the call. It created a moment of friction. It also created six months of faster decisions.</p>
+
+    <p>The conversation feels risky. The alternative is more expensive.</p>
+
+  <hr class="essay-divider" />
+</article>
+
+<footer>
+  <span class="footer-byline">David Hopper · Commercial Operations</span>
+  <a href="https://dahopper.com" class="footer-link">dahopper.com →</a>
+</footer>
+
 </body>
 </html>
